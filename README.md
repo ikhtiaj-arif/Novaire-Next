@@ -1,139 +1,104 @@
 # NOVAIRE — Haute Parfumerie Fine
 
-![Novaire Brand](public/file.svg)
-
-> **Novaire** is a premium fragrance brand landing page and Cash-on-Delivery (COD) lead capture system built for the Moroccan market. Designed with an ultra-luxury dark aesthetic, mobile-first responsiveness, price testing variants, and Google Sheets lead synchronization.
+> **Novaire** is a premium fragrance brand landing page and Cash-on-Delivery (COD) lead capture system built for the Moroccan market. Mobile-first, light/dark theming, three price-testing variants, and Google Sheets lead sync via Zapier. Architecture follows `novaire-project-spec.docx`.
 
 ---
 
-## 🌟 Key Features
+## Key Features
 
-- **Pricing Variant Testing**:
-  - `/a` — All 12 fragrances priced at **299 DH**
-  - `/b` — All 12 fragrances priced at **399 DH**
-  - `/c` — All 12 fragrances priced at **499 DH**
-  - `/` — Default landing page (299 DH)
-- **12-Fragrance Collection Grid**:
-  - Displays scent name, French description, olfactory notes, price, and quantity selectors.
-  - Clicking **"Commander"** auto-selects the fragrance and smooth-scrolls to the checkout form.
-- **Mobile-First COD Checkout Form**:
-  - **Nom Complet / الاسم الكامل**: Full name input.
-  - **Téléphone / رقم الهاتف**: Moroccan phone number validation regex (`/^(\+212|06|07)[0-9]{8}$/`).
-  - **Ville / المدينة**: Full Moroccan city dropdown (Casablanca, Rabat, Marrakech, Tanger, Fès, Agadir, etc.).
-  - **Parfum Sélectionné**: Pre-filled fragrance selection.
-  - **Animated Gold CTA**: `تأكيد الطلب | CONFIRMER MA COMMANDE`.
-- **Google Sheets & Webhook Integration**:
-  - Submits leads via `/api/submit` API route.
-  - Forwards lead payloads (`name`, `phone`, `city`, `scent`, `variant`, `totalPrice`, `timestamp`) to Google Sheets via Webhook.
-- **Thank You Page (`/thank-you`)**:
-  - Custom confirmation page featuring Arabic & French text regarding stock availability and priority WhatsApp reservation.
-- **Analytics & Pixel Tracking**:
-  - Built-in Meta (Facebook) Pixel & TikTok Pixel base scripts.
-  - Automatic triggering of custom `ConfirmOrder` events on form submission.
+- **Price Variant Testing** (dynamic route `/[variant]`, spec §2.3):
+  - `/a` — 12 fragrances at **299 DH**
+  - `/b` — 12 fragrances at **399 DH**
+  - `/c` — 12 fragrances at **499 DH**
+  - `/` — 307 redirects to `/a`
+- **12-Fragrance Grid**: scent number + name (Playfair), French description, scent-note pills (shadcn Badge), price, quantity selector (+/-).
+- **Order Bottom Sheet**: tapping **Commander** opens a shadcn Sheet (bottom sheet on mobile, slides up `translateY(100%→0)` at `cubic-bezier(0.32,0.72,0,1)` 350ms; centered Dialog on `lg:`).
+  - Read-only summary (qty × price = total DH), then form: **Nom Complet**, **Téléphone** (regex `/^(\+212|06|07)[0-9]{8}$/`), **Ville** (searchable Command + Popover over full Morocco city list).
+  - CTA **CONFIRMER MA COMMANDE** with states: default → loading (spinner) → error.
+- **Google Sheets via Zapier**: `/api/submit` re-validates server-side (never trusts client), generates the timestamp server-side, and POSTs to `ZAPIER_WEBHOOK_URL`.
+- **Analytics**: Meta Pixel + TikTok Pixel base scripts (placeholder IDs). Custom `ConfirmOrder` event fires on both only after a successful submit.
+- **Thank You page (`/thank-you`)**: bilingual FR/AR — Arabic paragraph with `dir="rtl"`, French with default `ltr`. Same theme, no form, no back button.
+- **Theme**: next-themes toggle (Sun/Moon) in the sticky header — works on all pages.
 
 ---
 
-## 📁 Folder Structure
+## Folder Structure
 
 ```text
-novaire-app/
-├── app/
-│   ├── a/
-│   │   └── page.tsx              # Variant A Route (299 DH)
-│   ├── b/
-│   │   └── page.tsx              # Variant B Route (399 DH)
-│   ├── c/
-│   │   └── page.tsx              # Variant C Route (499 DH)
-│   ├── api/
-│   │   └── submit/
-│   │       └── route.ts          # Lead Capture API Route
-│   ├── thank-you/
-│   │   └── page.tsx              # Thank You Confirmation Page
-│   ├── globals.css               # Tailwind CSS directives & global dark theme
-│   ├── layout.tsx                # Root layout with Pixel scripts & Theme Provider
-│   └── page.tsx                  # Home Route (Variant A)
-├── components/
-│   ├── CheckoutForm.tsx          # COD Form with Moroccan phone validation & city list
-│   ├── Footer.tsx                # Luxury Minimal Footer
-│   ├── Header.tsx                # Sticky Navigation Header & Dark Mode Toggle
-│   ├── Hero.tsx                  # Hero Banner & Trust Badges
-│   ├── LandingPage.tsx           # Unified wrapper component for variants
-│   └── ProductGrid.tsx           # 12 Fragrance Cards Grid
-├── lib/
-│   ├── constants.ts              # Fragrances list, Moroccan cities, and Pricing map
-│   └── pixels.ts                 # Meta & TikTok Pixel tracking helper functions
-├── next.config.js                # Next.js configuration
-├── tailwind.config.ts            # Tailwind CSS configuration with gold accent palette
-└── package.json
+app/
+├── [variant]/page.tsx      # Dynamic route (a | b | c) → price map + generateStaticParams
+├── thank-you/page.tsx      # Bilingual confirmation page
+├── api/submit/route.ts     # POST handler → server validation → Zapier webhook
+├── layout.tsx              # Root layout: fonts, pixels, next-themes, Header
+├── globals.css             # Tailwind v4 tokens + light/dark CSS variables + animations
+├── sitemap.ts / robots.ts
+└── page.tsx                # 307 redirect → /a
+components/
+├── landing/
+│   ├── LandingPage.tsx     # Root composition { variant, price }
+│   ├── Header.tsx          # Logo + theme toggle (no nav / no hamburger)
+│   ├── Hero.tsx            # Gradient placeholder, heading, trust badges
+│   ├── TrustStrip.tsx      # 2×2 delivery info icons
+│   ├── ProductGrid.tsx     # 1 / 2 / 3-column responsive grid
+│   ├── ProductCard.tsx     # Image placeholder, name, desc, pills, price, qty, Commander
+│   └── OrderModal.tsx      # Bottom sheet / dialog: summary + form + CTA states
+└── ui/                     # shadcn components (Base UI)
+hooks/
+├── useOrderModal.ts        # Modal open/close, selected scent, qty, live total
+└── useInView.ts            # Scroll-reveal IntersectionObserver
+lib/
+├── fragrances.ts           # Single source of truth: 12 fragrance objects
+├── variants.ts             # { a: 299, b: 399, c: 499 }
+├── validation.ts           # Shared client + server validators
+├── cities.ts               # Full Morocco city list
+└── pixels.ts               # fbq + ttq ConfirmOrder helpers
 ```
 
 ---
 
-## ⚡ Getting Started
-
-### Prerequisites
-
-- **Node.js**: v18.x or later
-- **npm** or **yarn** / **pnpm**
-
-### 1. Clone & Install Dependencies
+## Getting Started
 
 ```bash
-git clone <repository-url>
-cd novaire-app
 npm install
-```
-
-### 2. Configure Environment Variables (Optional)
-
-Create a `.env.local` file in the root directory:
-
-```env
-# Webhook URL for Google Sheets / Zapier / Make.com lead integration
-GOOGLE_SHEET_WEBHOOK_URL="https://script.google.com/macros/s/.../exec"
-```
-
-### 3. Run Development Server
-
-```bash
+cp .env.local.example .env.local   # or create it with the vars below
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
+### Environment Variables (`.env.local`)
+
+```env
+ZAPIER_WEBHOOK_URL=https://hooks.zapier.com/...   # appends lead to Google Sheet
+NEXT_PUBLIC_META_PIXEL_ID=PLACEHOLDER_META_PIXEL_ID   # client provides real ID
+NEXT_PUBLIC_TIKTOK_PIXEL_ID=PLACEHOLDER_TIKTOK_PIXEL_ID # client provides real ID
+```
 
 ---
 
-## 🧪 Routes to Test
+## Routes to Test
 
-| Route | Variant | Price | Description |
+| Route | Variant | Price | Notes |
 |---|---|---|---|
-| `/a` | Variant A | **299 DH** | Pricing Test A |
-| `/b` | Variant B | **399 DH** | Pricing Test B |
-| `/c` | Variant C | **499 DH** | Pricing Test C |
-| `/thank-you` | — | — | Order confirmation page |
+| `/a` | A | 299 DH | Canonical variant page |
+| `/b` | B | 399 DH | Canonical variant page |
+| `/c` | C | 499 DH | Canonical variant page |
+| `/thank-you` | — | — | Noindex, disabled from robots |
 
 ---
 
-## 🛠️ Production Build
-
-To build the production bundle and verify TypeScript types:
+## Production Build
 
 ```bash
+npm run lint
 npm run build
 npm run start
 ```
 
 ---
 
-## 📊 Analytics Pixel Configuration
+## Pending From Client
 
-To connect live Facebook & TikTok pixel tracking, replace `PLACEHOLDER_META_PIXEL_ID` and `PLACEHOLDER_TIKTOK_PIXEL_ID` in `app/layout.tsx` with your actual Pixel IDs:
-
-- **Meta Pixel**: `app/layout.tsx` -> `fbq('init', 'YOUR_META_PIXEL_ID')`
-- **TikTok Pixel**: `app/layout.tsx` -> `ttq.load('YOUR_TIKTOK_PIXEL_ID')`
-
----
-
-## 📜 License
+- Hero bottle mockup image → slots into the gradient placeholder (Hero.tsx).
+- Real Meta / TikTok Pixel IDs → replace `.env.local` placeholders (layout injects them).
+- Zapier webhook + Google Sheet → set `ZAPIER_WEBHOOK_URL` and map payload columns.
 
 © 2026 **Novaire**. All rights reserved.
