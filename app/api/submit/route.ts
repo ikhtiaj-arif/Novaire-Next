@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { validateOrder } from '@/lib/validation';
 
 export const runtime = 'nodejs';
 
@@ -26,31 +27,16 @@ export async function POST(request: Request) {
       typeof body.variant === 'string' ? body.variant.toUpperCase() : '';
     const price = typeof body.price === 'number' ? body.price : 0;
 
-    if (!name || name.length < 2) {
+    // Server-side validation — never trust the client (shared validation.ts)
+    const errors = validateOrder({ name, phone, city, scent });
+    if (Object.keys(errors).length > 0) {
       return NextResponse.json(
-        { success: false, error: 'Nom requis (min 2 caractères)' },
-        { status: 400 }
-      );
-    }
-    if (!/^(\+212|06|07)[0-9]{8}$/.test(phone)) {
-      return NextResponse.json(
-        { success: false, error: 'Numéro invalide (ex: 06XXXXXXXX)' },
-        { status: 400 }
-      );
-    }
-    if (!city) {
-      return NextResponse.json(
-        { success: false, error: 'Veuillez sélectionner une ville' },
-        { status: 400 }
-      );
-    }
-    if (!scent) {
-      return NextResponse.json(
-        { success: false, error: 'Parfum invalide' },
+        { success: false, error: errors },
         { status: 400 }
       );
     }
 
+    // Timestamp generated server-side only
     const leadData = {
       timestamp: new Date().toISOString(),
       name,
