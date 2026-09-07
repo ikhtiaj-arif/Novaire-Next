@@ -43,5 +43,4 @@ export const MOROCCAN_CITIES: string[] = [
   'Taourirt',
   'Oulad Teïma',
   'Autre ville',
-  'Autre ville / أخرى',
 ];
