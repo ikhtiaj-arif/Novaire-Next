@@ -1,11 +1,256 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   NOVAIRE — Design System (Tailwind v4 @theme)
+   Palette from project-spec.docx §4.2
+   Light mode:  bg #F8F7F5 · surface #FFF · border #E8E8E8
+   Dark mode:   bg #0A0A0A · surface #141414 · border #2A2A2A
+   Accent:      gold #C9A84C (both) · hover #A8892F
+   ============================================================ */
+@theme inline {
+  /* Typography */
+  --font-heading: var(--font-playfair, "Playfair Display", Georgia, serif);
+  --font-sans: var(--font-inter, "Inter", ui-sans-serif, system-ui, sans-serif);
+
+  /* shadcn token bridge */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+
+  /* -------- NOVAIRE Brand Tokens -------- */
+  --color-gold: #c9a84c;
+  --color-gold-hover: #a8892f;
+  --color-gold-light: #e9d9a6;
+  --color-gold-dark: #8b6914;
+}
+
+/* ============================================================
+   Light Mode (default) — CSS Custom Properties
+   ============================================================ */
+:root {
+  --background: #f8f7f5;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --primary: #c9a84c;
+  --primary-foreground: #0a0a0a;
+  --secondary: #f0eee9;
+  --secondary-foreground: #0a0a0a;
+  --muted: #efede8;
+  --muted-foreground: #6b6b6b;
+  --accent: #c9a84c;
+  --accent-foreground: #0a0a0a;
+  --destructive: #d94f4f;
+  --border: #e8e8e8;
+  --input: #e8e8e8;
+  --ring: #c9a84c;
+  --radius: 0.75rem;
+}
+
+/* ============================================================
+   Dark Mode
+   ============================================================ */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #f5f5f5;
+  --card: #141414;
+  --card-foreground: #f5f5f5;
+  --popover: #141414;
+  --popover-foreground: #f5f5f5;
+  --primary: #c9a84c;
+  --primary-foreground: #0a0a0a;
+  --secondary: #1f1f1f;
+  --secondary-foreground: #f5f5f5;
+  --muted: #1a1a1a;
+  --muted-foreground: #9a9a9a;
+  --accent: #c9a84c;
+  --accent-foreground: #0a0a0a;
+  --destructive: #ff6b6b;
+  --border: #2a2a2a;
+  --input: #2a2a2a;
+  --ring: #c9a84c;
+}
+
+/* ============================================================
+   Base Resets
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 html {
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-family: var(--font-sans);
 }
 
 body {
-  @apply transition-colors duration-300;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  margin: 0;
+  transition-property: background-color, color, border-color;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
+}
+
+::selection {
+  background-color: rgba(201, 168, 76, 0.3);
+  color: var(--foreground);
+}
+
+/* ============================================================
+   Custom Animations (GPU-only: transform + opacity)
+   ============================================================ */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes gold-glow-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 12px 2px rgba(201, 168, 76, 0.30),
+      0 0 32px 8px rgba(201, 168, 76, 0.10);
+  }
+  50% {
+    box-shadow:
+      0 0 24px 6px rgba(201, 168, 76, 0.55),
+      0 0 60px 16px rgba(201, 168, 76, 0.20);
+  }
+}
+
+@keyframes shimmer {
+  from { background-position: -200% center; }
+  to   { background-position:  200% center; }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%      { transform: translateX(-6px); }
+  40%      { transform: translateX(6px); }
+  60%      { transform: translateX(-4px); }
+  80%      { transform: translateX(4px); }
+}
+
+/* ============================================================
+   Utility Classes (scoped under @layer for Tailwind v4)
+   ============================================================ */
+@layer utilities {
+  .animate-fade-up {
+    animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .animate-fade-in {
+    animation: fade-in 0.5s ease both;
+  }
+  .animate-gold-glow {
+    animation: gold-glow-pulse 2.2s ease-in-out infinite;
+  }
+  .animate-shimmer {
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      rgba(201, 168, 76, 0.2) 50%,
+      transparent 60%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+  .animate-scale-in {
+    animation: scale-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .animate-shake {
+    animation: shake 0.4s ease both;
+  }
+
+  /* Delay helpers */
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+  .delay-600 { animation-delay: 600ms; }
+  .delay-700 { animation-delay: 700ms; }
+
+  /* Gold text gradient */
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #e9d9a6 0%, #c9a84c 40%, #8b6914 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glass morphism */
+  .glass {
+    background: color-mix(in srgb, var(--foreground) 4%, transparent);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid var(--border);
+  }
+
+  .glass-gold {
+    background: rgba(201, 168, 76, 0.08);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(201, 168, 76, 0.25);
+  }
+
+  /* Scrollbar hide */
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }

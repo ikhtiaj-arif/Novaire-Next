@@ -1,11 +1,26 @@
+type FbqFn = (
+  action: string,
+  event: string,
+  data?: Record<string, unknown>
+) => void;
+
+type Ttq = {
+  track?: (event: string, data?: Record<string, unknown>) => void;
+};
+
 declare global {
   interface Window {
-    fbq?: any;
-    ttq?: any;
+    fbq?: FbqFn;
+    ttq?: Ttq;
   }
 }
 
-export function trackConfirmOrder(data: { scent: string; variant: string; price: number; quantity?: number }) {
+export function trackConfirmOrder(data: {
+  scent: string;
+  variant: string;
+  price: number;
+  quantity?: number;
+}) {
   if (typeof window === 'undefined') return;
 
   // Meta (Facebook) Pixel

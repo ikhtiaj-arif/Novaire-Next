@@ -1,7 +1,7 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  darkMode: ['class'] as any,
+  darkMode: 'class',
   content: [
     './app/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        gold: '#D4AF37',
+        gold: '#C9A84C',
       },
     },
   },
