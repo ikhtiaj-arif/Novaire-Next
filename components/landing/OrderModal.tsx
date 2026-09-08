@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
-import { ChevronsUpDown, LoaderCircle, MapPin } from 'lucide-react';
+import { ChevronsUpDown, LoaderCircle, MapPin, Minus, Plus } from 'lucide-react';
 import type { Fragrance } from '@/lib/fragrances';
 import { validateOrder, type FieldErrors } from '@/lib/validation';
 import { MOROCCAN_CITIES } from '@/lib/cities';
@@ -51,6 +51,8 @@ interface OrderModalProps {
   total: number;
   unitPrice: number;
   variant: string;
+  onQuantityIncrement: () => void;
+  onQuantityDecrement: () => void;
   onSubmit: (payload: OrderPayload) => Promise<boolean>;
 }
 
@@ -62,6 +64,8 @@ export function OrderModal({
   total,
   unitPrice,
   variant,
+  onQuantityIncrement,
+  onQuantityDecrement,
   onSubmit,
 }: OrderModalProps) {
   const [name, setName] = useState('');
@@ -128,13 +132,33 @@ export function OrderModal({
             {scent.num} — {scent.name}
           </div>
         </div>
-        <span className="text-sm font-semibold text-foreground">
-          {quantity} × {unitPrice} DH
-        </span>
+        <div className="inline-flex items-center gap-1 rounded-full border border-border px-1 py-0.5">
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            aria-label="Réduire la quantité"
+            onClick={onQuantityDecrement}
+          >
+            <Minus className="h-3.5 w-3.5" aria-hidden="true" />
+          </Button>
+          <span className="w-6 text-center text-sm font-medium text-foreground">
+            {quantity}
+          </span>
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            aria-label="Augmenter la quantité"
+            onClick={onQuantityIncrement}
+          >
+            <Plus className="h-3.5 w-3.5" aria-hidden="true" />
+          </Button>
+        </div>
       </div>
       <Separator className="mt-3 mb-3" />
       <div className="flex items-center justify-between">
-        <span className="text-sm text-muted-foreground">Total</span>
+        <span className="text-sm text-muted-foreground">
+          {quantity} × {unitPrice} DH
+        </span>
         <span className="text-lg font-bold text-gold">
           {total} <span className="text-xs">DH</span>
         </span>

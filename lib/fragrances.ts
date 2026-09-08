@@ -1,9 +1,15 @@
+import { VARIANTS, type Variant } from '@/lib/variants';
+
 export interface Fragrance {
   id: string;
   num: string;
   name: string;
   description: string;
   pills: string[];
+}
+
+export function getFragrancePrice(_fragrance: Fragrance, variant: Variant): number {
+  return VARIANTS[variant];
 }
 
 export const FRAGRANCES: Fragrance[] = [

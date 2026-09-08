@@ -4,29 +4,47 @@ import type { Fragrance } from '@/lib/fragrances';
 export function useOrderModal(price: number) {
   const [open, setOpen] = useState(false);
   const [selectedScent, setSelectedScent] = useState<Fragrance | null>(null);
-  const [quantity, setQuantity] = useState(1);
+  const [modalQuantity, setModalQuantity] = useState(1);
+  const [cardQuantities, setCardQuantities] = useState<Record<string, number>>(
+    {}
+  );
 
-  const openFor = useCallback((fragrance: Fragrance) => {
-    setSelectedScent(fragrance);
-    setQuantity(1);
-    setOpen(true);
+  const getCardQuantity = useCallback(
+    (fragranceId: string) => cardQuantities[fragranceId] ?? 1,
+    [cardQuantities]
+  );
+
+  const setCardQuantity = useCallback((fragranceId: string, qty: number) => {
+    setCardQuantities((prev) => ({
+      ...prev,
+      [fragranceId]: Math.max(1, qty),
+    }));
   }, []);
+
+  const openFor = useCallback(
+    (fragrance: Fragrance) => {
+      setSelectedScent(fragrance);
+      setModalQuantity(cardQuantities[fragrance.id] ?? 1);
+      setOpen(true);
+    },
+    [cardQuantities]
+  );
 
   const close = useCallback(() => {
     setOpen(false);
   }, []);
 
-  const increment = useCallback(() => {
-    setQuantity((q) => q + 1);
+  const modalIncrement = useCallback(() => {
+    setModalQuantity((q) => q + 1);
   }, []);
 
-  const decrement = useCallback(() => {
-    setQuantity((q) => Math.max(1, q - 1));
+  const modalDecrement = useCallback(() => {
+    setModalQuantity((q) => Math.max(1, q - 1));
   }, []);
 
   const total = useMemo(
-    () => (selectedScent ? price * quantity : 0),
-    [selectedScent, price, quantity]
+    () => (selectedScent ? price * modalQuantity : 0),
+    [selectedScent, price, modalQuantity]
   );
 
   return {
@@ -34,10 +52,13 @@ export function useOrderModal(price: number) {
     openFor,
     close,
     selectedScent,
-    quantity,
-    setQuantity,
-    increment,
-    decrement,
+    cardQuantities,
+    getCardQuantity,
+    setCardQuantity,
+    modalQuantity,
+    setModalQuantity,
+    modalIncrement,
+    modalDecrement,
     total,
     unitPrice: price,
   };

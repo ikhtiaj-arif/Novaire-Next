@@ -34,7 +34,6 @@ export function LandingPage({
 
     if (!response.ok) return false;
 
-    // Only fire pixels + redirect on success (spec: no redirect on API failure)
     trackConfirmOrder({
       scent: payload.scent,
       variant: variant.toUpperCase(),
@@ -53,8 +52,8 @@ export function LandingPage({
       <ProductGrid
         fragrances={FRAGRANCES}
         price={price}
-        quantity={modal.quantity}
-        onQuantityChange={modal.setQuantity}
+        getCardQuantity={modal.getCardQuantity}
+        onCardQuantityChange={modal.setCardQuantity}
         onOrder={modal.openFor}
       />
       <OrderModal
@@ -63,10 +62,12 @@ export function LandingPage({
           if (!open) modal.close();
         }}
         scent={modal.selectedScent}
-        quantity={modal.quantity}
+        quantity={modal.modalQuantity}
         total={modal.total}
         unitPrice={modal.unitPrice}
         variant={variant.toUpperCase()}
+        onQuantityIncrement={modal.modalIncrement}
+        onQuantityDecrement={modal.modalDecrement}
         onSubmit={handleSubmit}
       />
     </>

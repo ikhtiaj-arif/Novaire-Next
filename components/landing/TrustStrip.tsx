@@ -14,7 +14,7 @@ const ITEMS = [
 
 export function TrustStrip() {
   return (
-    <section className="mx-auto w-full max-w-6xl px-4 sm:px-6">
+    <section className="mx-auto w-full max-w-6xl px-4 sm:px-6 pt-16">
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-6">
         {ITEMS.map(({ icon: Icon, label, sub }) => (
           <div

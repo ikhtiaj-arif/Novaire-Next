@@ -7,18 +7,18 @@ import type { OrderModalState } from '@/hooks/useOrderModal';
 export function ProductGrid({
   fragrances,
   price,
-  quantity,
-  onQuantityChange,
+  getCardQuantity,
+  onCardQuantityChange,
   onOrder,
 }: {
   fragrances: Fragrance[];
   price: number;
-  quantity: number;
-  onQuantityChange: OrderModalState['setQuantity'];
+  getCardQuantity: OrderModalState['getCardQuantity'];
+  onCardQuantityChange: OrderModalState['setCardQuantity'];
   onOrder: OrderModalState['openFor'];
 }) {
   return (
-    <section className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6" aria-labelledby="nos-fragrances">
+    <section className="mx-auto w-full max-w-6xl px-4 md:px-0 py-16 sm:px-6" aria-labelledby="nos-fragrances">
       <h2
         id="nos-fragrances"
         className="font-heading mb-10 text-center text-2xl font-bold text-foreground sm:text-3xl"
@@ -32,8 +32,8 @@ export function ProductGrid({
             key={fragrance.id}
             fragrance={fragrance}
             price={price}
-            quantity={quantity}
-            onQuantityChange={onQuantityChange}
+            quantity={getCardQuantity(fragrance.id)}
+            onQuantityChange={(qty) => onCardQuantityChange(fragrance.id, qty)}
             onOrder={() => onOrder(fragrance)}
             delay={index}
           />
