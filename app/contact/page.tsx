@@ -8,8 +8,8 @@ export const metadata: Metadata = {
 };
 
 const CONTACT_ITEMS = [
-  // { icon: Phone, label: 'Téléphone', value: '+212 6 00 00 00 00' },
-  // { icon: MessageCircle, label: 'WhatsApp', value: '+212 6 00 00 00 00' },
+  { icon: Phone, label: 'Téléphone', value: '+212 6 00 00 00 00' },
+  { icon: MessageCircle, label: 'WhatsApp', value: '+212 6 00 00 00 00' },
   { icon: Mail, label: 'Email', value: 'contact@novaire.ma' },
   { icon: MapPin, label: 'Adresse', value: 'Casablanca, Maroc' },
 ];
