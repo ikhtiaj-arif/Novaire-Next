@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { ChevronsUpDown, LoaderCircle, MapPin, Minus, Plus } from 'lucide-react';
 import type { Fragrance } from '@/lib/fragrances';
 import { validateOrder, type FieldErrors } from '@/lib/validation';
@@ -75,6 +76,8 @@ export function OrderModal({
   const [errors, setErrors] = useState<FieldErrors>({});
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -281,28 +284,30 @@ export function OrderModal({
 
   return (
     <>
-      {/* Mobile: bottom sheet */}
-      <Sheet open={open} onOpenChange={onOpenChange}>
-        <SheetContent
-          side="bottom"
-          overlayClassName="lg:hidden"
-          className="max-h-[90dvh] overflow-y-auto rounded-t-2xl px-4 pb-8 pt-6 lg:hidden"
-        >
-          <SheetTitle className="sr-only">Votre commande</SheetTitle>
-          {inner}
-        </SheetContent>
-      </Sheet>
-
-      {/* Desktop: centered dialog */}
-      <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent
-          overlayClassName="hidden lg:block"
-          className="hidden lg:grid lg:max-w-md"
-        >
-          <DialogTitle className="sr-only">Votre commande</DialogTitle>
-          <div className="pr-6">{inner}</div>
-        </DialogContent>
-      </Dialog>
+      {isDesktop ? (
+        /* Desktop: centered dialog */
+        <Dialog open={open} onOpenChange={onOpenChange}>
+          <DialogContent
+            overlayClassName="lg:hidden"
+            className="hidden lg:grid lg:max-w-md"
+          >
+            <DialogTitle className="sr-only">Votre commande</DialogTitle>
+            <div className="pr-6">{inner}</div>
+          </DialogContent>
+        </Dialog>
+      ) : (
+        /* Mobile: bottom sheet */
+        <Sheet open={open} onOpenChange={onOpenChange}>
+          <SheetContent
+            side="bottom"
+            overlayClassName="lg:hidden"
+            className="max-h-[90dvh] overflow-y-auto rounded-t-2xl px-4 pb-8 pt-6 lg:hidden"
+          >
+            <SheetTitle className="sr-only">Votre commande</SheetTitle>
+            {inner}
+          </SheetContent>
+        </Sheet>
+      )}
     </>
   );
 }

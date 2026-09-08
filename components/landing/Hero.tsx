@@ -1,5 +1,6 @@
 import { Truck, Handshake, ArrowDown } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const TRUST_BADGES = [
   { icon: Truck, label: "Livraison Rapide partout au Maroc" },
@@ -100,20 +101,36 @@ export function Hero({ price }: { price: number }) {
         </div>
 
         {/* CTA */}
-        <button
-          type="button"
+        <Link
+          href="#nos-fragrances"
+          scroll={false}
+          onClick={(e) => {
+            e.preventDefault();
+            document
+              .getElementById("nos-fragrances")
+              ?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }}
           className="mt-7 inline-flex items-center justify-center rounded-full bg-gold px-8 py-3.5 text-sm font-semibold text-black shadow-lg shadow-black/20 transition-all hover:scale-105 hover:bg-gold/90 active:scale-100"
         >
           Découvrir la collection
-        </button>
+        </Link>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-7 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-white/40">
+        <button
+          type="button"
+          onClick={() =>
+            document
+              .getElementById("nos-fragrances")
+              ?.scrollIntoView({ behavior: "smooth", block: "start" })
+          }
+          className="absolute bottom-7 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-white/40"
+          aria-label="Faire défiler jusqu'à la collection"
+        >
           <span className="text-[10px] uppercase tracking-[0.25em]">
             Découvrir
           </span>
           <ArrowDown className="h-4 w-4 animate-bounce" />
-        </div>
+        </button>
       </div>
     </section>
   );
