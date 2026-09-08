@@ -60,6 +60,10 @@ export function ProductCard({
           {fragrance.description}
         </p>
 
+        <p className="mt-2 text-xs leading-relaxed text-muted-foreground/80">
+          {fragrance.scentProfile}
+        </p>
+
         <div className="mt-3 flex flex-wrap gap-1.5">
           {fragrance.pills.map((pill) => (
             <Badge key={pill} variant="outline" className="text-[11px]">
