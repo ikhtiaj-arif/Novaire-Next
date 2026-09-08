@@ -8,6 +8,8 @@ export interface Fragrance {
   description: string;
   scentProfile: string;
   pills: string[];
+  bottle: string;
+  box: string;
 }
 
 export function getFragrancePrice(_fragrance: Fragrance, variant: Variant): number {
@@ -24,6 +26,8 @@ export const FRAGRANCES: Fragrance[] = [
     scentProfile:
       "Inspiré de Creed Aventus — Un mélange magistral et sophistiqué d'ananas fumé et frais, de pomme verte croquante, sur une base boisée de bouleau rustique.",
     pills: ['Aventus', 'Fruité', 'Boisé'],
+    bottle: '/bottle/bottle_01.jpeg',
+    box: '/box/box_image_1.jpeg',
   },
   {
     id: '02',
@@ -34,6 +38,8 @@ export const FRAGRANCES: Fragrance[] = [
     scentProfile:
       "Inspiré de Dior Sauvage — Une fragrance brute, métallique et minérale portée par une overdose de molécules ambrées, de poivre noir concassé et de bergamote fraîche.",
     pills: ['Boisé', 'Frais', 'Intense'],
+    bottle: '/bottle/bottle_2.jpeg',
+    box: '/box/box_image_2.jpeg',
   },
   {
     id: '03',
@@ -44,6 +50,8 @@ export const FRAGRANCES: Fragrance[] = [
     scentProfile:
       "Inspiré de Bleu de Chanel — Un chef-d'œuvre aromatique ultra-propre et intemporel mariant un citron étincelant, des feuilles de menthe fraîche, du gingembre râpé et un encens profondément fumé.",
     pills: ['Aromatique', 'Élégant', 'Intemporel'],
+    bottle: '/bottle/bottle_3.jpeg',
+    box: '/box/box_image_3.jpeg',
   },
   {
     id: '04',
@@ -54,6 +62,8 @@ export const FRAGRANCES: Fragrance[] = [
     scentProfile:
       "Inspiré d'Acqua di Giò Profondo — Un voyage aquatique glacé et océanique capturant des vagues de fraîcheur marine, de romarin aromatique et de roches minérales.",
     pills: ['Marin', 'Frais', 'Profond'],
+    bottle: '/bottle/bottle_4.jpeg',
+    box: '/box/box_image_4.jpeg',
   },
   {
     id: '05',
@@ -64,6 +74,8 @@ export const FRAGRANCES: Fragrance[] = [
     scentProfile:
       "Inspiré de Stronger With You Intensely — Une signature gourmande chaleureuse, douillette et addictive bâtie sur un caramel de toffee fondant, des châtaignes rôties et une riche résine ambrée.",
     pills: ['Ambré', 'Gourmand', 'Chaud'],
+    bottle: '/bottle/bottle_5.jpeg',
+    box: '/box/box_image_5.jpeg',
   },
   {
     id: '06',
@@ -74,6 +86,8 @@ export const FRAGRANCES: Fragrance[] = [
     scentProfile:
       "Inspiré de 1 Million — Un profil épicé, audacieux et luxueux défini par une écorce de cannelle chaleureuse, une mandarine sanguine et des lanières de cuir brun premium.",
     pills: ['Cuir', 'Épicé', 'Audacieux'],
+    bottle: '/bottle/bottle_6.jpeg',
+    box: '/box/box_image_6.jpeg',
   },
   {
     id: '07',
@@ -84,6 +98,8 @@ export const FRAGRANCES: Fragrance[] = [
     scentProfile:
       "Inspiré de Baccarat Rouge 540 — Un mélange moléculaire, poétique et très diffusable de filaments de safran écarlate, de bois ambré lumineux et d'un sillage sucré et aérien de sucre filé tiède.",
     pills: ['Ambré', 'Rouge', 'Sophistiqué'],
+    bottle: '/bottle/bottle_7.jpeg',
+    box: '/box/box_image_7.jpeg',
   },
   {
     id: '08',
@@ -94,6 +110,8 @@ export const FRAGRANCES: Fragrance[] = [
     scentProfile:
       "Inspiré de Black Opium YSL — Un parfum de nuit séducteur, sombre et très addictif mariant des cascades riches de grains de café, de gousses de vanille lisses et de jasmin blanc délicat.",
     pills: ['Café', 'Vanille', 'Sensuel'],
+    bottle: '/bottle/bottle_8.jpeg',
+    box: '/box/box_image_8.jpeg',
   },
   {
     id: '09',
@@ -104,6 +122,8 @@ export const FRAGRANCES: Fragrance[] = [
     scentProfile:
       "Inspiré de Carolina Herrera Good Girl — Une formulation crémeuse, audacieuse et à double nature révélant une poudre de cacao riche, une tubéreuse blanche sensuelle et des fèves de tonka torréfiées.",
     pills: ['Tubéreuse', 'Cacao', 'Mystérieux'],
+    bottle: '/bottle/bottle_9.jpeg',
+    box: '/box/box_image_9.jpeg',
   },
   {
     id: '10',
@@ -114,6 +134,8 @@ export const FRAGRANCES: Fragrance[] = [
     scentProfile:
       "Inspiré de Lancôme La Vie Est Belle — Une célébration élégante, lumineuse et ultra-longue de pralines chocolatées sucrées, d'iris pourpre éclatant et de cassis mûr.",
     pills: ['Iris', 'Gourmand', 'Lumineux'],
+    bottle: '/bottle/bottle_10.jpeg',
+    box: '/box/box_image_10.jpeg',
   },
   {
     id: '11',
@@ -124,6 +146,8 @@ export const FRAGRANCES: Fragrance[] = [
     scentProfile:
       "Inspiré de YSL Libre EDP — Une déclaration aromatique audacieuse, nette et sans genre équilibrant des brins de lavande française fraîche, de la fleur d'oranger et une base de vanille sombre.",
     pills: ['Lavande', 'Floral', 'Frais'],
+    bottle: '/bottle/bottle_11.jpeg',
+    box: '/box/box_image_11.jpeg',
   },
   {
     id: '12',
@@ -134,5 +158,7 @@ export const FRAGRANCES: Fragrance[] = [
     scentProfile:
       "Inspiré de Chanel Chance Eau Tendre — Un nuage fruité-floral romantique, aérien et délicatement sucré de pétales de jacinthe rose doux, de quartiers de pamplemousse frais et de musc blanc lisse.",
     pills: ['Fruité', 'Floral', 'Doux'],
+    bottle: '/bottle/bottle_12.jpeg',
+    box: '/box/box_image_12.jpeg',
   },
 ];
