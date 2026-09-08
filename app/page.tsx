@@ -1,11 +1,5 @@
-import { LandingPage } from '@/components/LandingPage';
-import { PRICING_VARIANTS } from '@/lib/constants';
-
-export const metadata = {
-  title: 'Novaire | Fragrance',
-  description: 'Premium fragrances for Morocco',
-};
+import { redirect } from 'next/navigation';
 
 export default function Home() {
-  return <LandingPage variant="A" price={PRICING_VARIANTS.A} />;
+  redirect('/a');
 }
