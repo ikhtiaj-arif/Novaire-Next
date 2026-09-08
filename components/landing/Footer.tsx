@@ -3,8 +3,8 @@ import { Phone, MessageCircle, Mail, MapPin, Heart } from 'lucide-react';
 import { NAV_LINKS } from '@/lib/nav';
 
 const CONTACT = [
-  { icon: Phone, label: '+212 6 00 00 00 00' },
-  { icon: MessageCircle, label: 'WhatsApp — +212 6 00 00 00 00' },
+  // { icon: Phone, label: '+212 6 00 00 00 00' },
+  // { icon: MessageCircle, label: 'WhatsApp — +212 6 00 00 00 00' },
   { icon: Mail, label: 'contact@novaire.ma' },
   { icon: MapPin, label: 'Casablanca, Maroc' },
 ];
