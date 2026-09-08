@@ -8,6 +8,9 @@ export interface Fragrance {
   description: string;
   scentProfile: string;
   pills: string[];
+  inspiredBy: string;
+  bottle: string;
+  box: string;
 }
 
 export function getFragrancePrice(_fragrance: Fragrance, variant: Variant): number {
@@ -20,30 +23,39 @@ export const FRAGRANCES: Fragrance[] = [
     num: 'N°01',
     name: "L'EMPIRE",
     category: 'mens',
-    description: 'Inspiré par les notes iconiques d\'Aventus',
+    description: 'Ananas fumé, pomme croquante, bois précieux',
     scentProfile:
-      "Inspiré de Creed Aventus — Un mélange magistral et sophistiqué d'ananas fumé et frais, de pomme verte croquante, sur une base boisée de bouleau rustique.",
-    pills: ['Aventus', 'Fruité', 'Boisé'],
+      "Un sillage viril et élégant, porté par un ananas fumé et une pomme croquante sur une base de bois chaleureux. Une présence royale, posée et inoubliable.",
+    pills: ['Fruité', 'Boisé', 'Élégant'],
+    inspiredBy: 'Profil olfactif inspiré de Creed Aventus',
+    bottle: '/bottle/bottle_01.jpeg',
+    box: '/box/box_image_1.jpeg',
   },
   {
     id: '02',
     num: 'N°02',
     name: 'SILEX BLEU',
     category: 'mens',
-    description: 'Sillage intense boisé frais',
+    description: 'Fraîcheur boisée, présence intense',
     scentProfile:
-      "Inspiré de Dior Sauvage — Une fragrance brute, métallique et minérale portée par une overdose de molécules ambrées, de poivre noir concassé et de bergamote fraîche.",
-    pills: ['Boisé', 'Frais', 'Intense'],
+      'Bergamote fraîche, poivre noir et bois ambrés. Une fragrance fraîche, puissante et masculine pensée pour laisser une présence nette.',
+    pills: ['Frais', 'Boisé', 'Intense'],
+    inspiredBy: 'Profil olfactif inspiré de Dior Sauvage',
+    bottle: '/bottle/bottle_2.jpeg',
+    box: '/box/box_image_2.jpeg',
   },
   {
     id: '03',
     num: 'N°03',
     name: 'BLEU ABSOLU',
     category: 'mens',
-    description: 'Élégance intemporelle aromatique',
+    description: 'Élégance aromatique intemporelle',
     scentProfile:
-      "Inspiré de Bleu de Chanel — Un chef-d'œuvre aromatique ultra-propre et intemporel mariant un citron étincelant, des feuilles de menthe fraîche, du gingembre râpé et un encens profondément fumé.",
+      'Citron étincelant, menthe fraîche et encens fumé. Un classique propre et raffiné, sûr de lui et pensé pour chaque occasion.',
     pills: ['Aromatique', 'Élégant', 'Intemporel'],
+    inspiredBy: 'Profil olfactif inspiré de Bleu de Chanel',
+    bottle: '/bottle/bottle_3.jpeg',
+    box: '/box/box_image_3.jpeg',
   },
   {
     id: '04',
@@ -52,78 +64,102 @@ export const FRAGRANCES: Fragrance[] = [
     category: 'mens',
     description: 'Fraîcheur marine profonde',
     scentProfile:
-      "Inspiré d'Acqua di Giò Profondo — Un voyage aquatique glacé et océanique capturant des vagues de fraîcheur marine, de romarin aromatique et de roches minérales.",
+      "Une bouffée d'air iodé — fraîcheur marine, romarin et roches minérales. Un parfum de grand large, profond et enveloppant.",
     pills: ['Marin', 'Frais', 'Profond'],
+    inspiredBy: "Profil olfactif inspiré d'Acqua di Giò Profondo",
+    bottle: '/bottle/bottle_4.jpeg',
+    box: '/box/box_image_4.jpeg',
   },
   {
     id: '05',
     num: 'N°05',
     name: 'AMBRE NOIR',
     category: 'mens',
-    description: 'Chaleur envoûtante et gourmande',
+    description: 'Chaleur gourmande addictive',
     scentProfile:
-      "Inspiré de Stronger With You Intensely — Une signature gourmande chaleureuse, douillette et addictive bâtie sur un caramel de toffee fondant, des châtaignes rôties et une riche résine ambrée.",
+      'Caramel fondant, châtaigne rôtie et ambre chaud. Une fragrance enveloppante et addictive, celle dont on se souvient dès votre passage.',
     pills: ['Ambré', 'Gourmand', 'Chaud'],
+    inspiredBy: 'Profil olfactif inspiré de Stronger With You Intensely',
+    bottle: '/bottle/bottle_5.jpeg',
+    box: '/box/box_image_5.jpg',
   },
   {
     id: '06',
     num: 'N°06',
     name: "LINGOT D'OR",
     category: 'mens',
-    description: 'Cuir épicé audacieux',
+    description: 'Épicé, cuir, audacieux',
     scentProfile:
-      "Inspiré de 1 Million — Un profil épicé, audacieux et luxueux défini par une écorce de cannelle chaleureuse, une mandarine sanguine et des lanières de cuir brun premium.",
-    pills: ['Cuir', 'Épicé', 'Audacieux'],
+      "Cannelle chaleureuse, mandarine sanguine et cuir brun. Une signature dorée et audacieuse, pensée pour être vue comme sentie.",
+    pills: ['Épicé', 'Cuir', 'Audacieux'],
+    inspiredBy: 'Profil olfactif inspiré de 1 Million',
+    bottle: '/bottle/bottle_6.jpeg',
+    box: '/box/box_image_6.jpeg',
   },
   {
     id: '07',
     num: 'N°07',
     name: 'ROUGE CRISTAL',
     category: 'womens',
-    description: 'Ambre rouge sophistiqué',
+    description: 'Ambre lumineux sophistiqué',
     scentProfile:
-      "Inspiré de Baccarat Rouge 540 — Un mélange moléculaire, poétique et très diffusable de filaments de safran écarlate, de bois ambré lumineux et d'un sillage sucré et aérien de sucre filé tiède.",
+      "Safran écarlate, bois ambrés et sucre filé. Un sillage lumineux, poétique et diffusant, d'une présence sophistiquée.",
     pills: ['Ambré', 'Rouge', 'Sophistiqué'],
+    inspiredBy: 'Profil olfactif inspiré de Baccarat Rouge 540',
+    bottle: '/bottle/bottle_7.jpeg',
+    box: '/box/box_image_7.jpeg',
   },
   {
     id: '08',
     num: 'N°08',
     name: 'NUIT NOIRE',
     category: 'womens',
-    description: 'Café noir et vanille sensuelle',
+    description: 'Café noir, vanille sensuelle',
     scentProfile:
-      "Inspiré de Black Opium YSL — Un parfum de nuit séducteur, sombre et très addictif mariant des cascades riches de grains de café, de gousses de vanille lisses et de jasmin blanc délicat.",
+      'Café noir, vanille lisse et jasmin blanc. Un parfum de nuit sombre et envoûtant, doux et addictif à la fois.',
     pills: ['Café', 'Vanille', 'Sensuel'],
+    inspiredBy: 'Profil olfactif inspiré de Black Opium YSL',
+    bottle: '/bottle/bottle_8.jpeg',
+    box: '/box/box_image_8.jpeg',
   },
   {
     id: '09',
     num: 'N°09',
     name: 'TALONS ROUGES',
     category: 'womens',
-    description: 'Tubéreuse mystérieuse et cacao',
+    description: 'Tubéreuse et cacao élégants',
     scentProfile:
-      "Inspiré de Carolina Herrera Good Girl — Une formulation crémeuse, audacieuse et à double nature révélant une poudre de cacao riche, une tubéreuse blanche sensuelle et des fèves de tonka torréfiées.",
+      "Cacao crémeux, tubéreuse blanche et fève tonka. Une élégance audacieuse à double visage — douce d'abord, affirmée ensuite.",
     pills: ['Tubéreuse', 'Cacao', 'Mystérieux'],
+    inspiredBy: 'Profil olfactif inspiré de Carolina Herrera Good Girl',
+    bottle: '/bottle/bottle_9.jpeg',
+    box: '/box/box_image_9.jpeg',
   },
   {
     id: '10',
     num: 'N°10',
     name: 'ÉCLAT JOYEUX',
     category: 'womens',
-    description: 'Iris lumineux et gourmand',
+    description: 'Iris raffiné et gourmand',
     scentProfile:
-      "Inspiré de Lancôme La Vie Est Belle — Une célébration élégante, lumineuse et ultra-longue de pralines chocolatées sucrées, d'iris pourpre éclatant et de cassis mûr.",
+      "Praline chocolatée, iris éclatant et cassis mûr. Une célébration lumineuse et gourmande, d'une élégance rayonnante.",
     pills: ['Iris', 'Gourmand', 'Lumineux'],
+    inspiredBy: 'Profil olfactif inspiré de Lancôme La Vie Est Belle',
+    bottle: '/bottle/bottle_10.jpeg',
+    box: '/box/box_image_10.jpeg',
   },
   {
     id: '11',
     num: 'N°11',
     name: 'LIBRE ESPRIT',
     category: 'womens',
-    description: 'Lavande audacieuse et fleur d\'oranger',
+    description: 'Lavande fraîche, fleur d\'oranger',
     scentProfile:
-      "Inspiré de YSL Libre EDP — Une déclaration aromatique audacieuse, nette et sans genre équilibrant des brins de lavande française fraîche, de la fleur d'oranger et une base de vanille sombre.",
+      "Lavande fraîche, fleur d'oranger et vanille sombre. Une déclaration libre et audacieuse, féminine et sans compromis.",
     pills: ['Lavande', 'Floral', 'Frais'],
+    inspiredBy: 'Profil olfactif inspiré de YSL Libre',
+    bottle: '/bottle/bottle_11.jpeg',
+    box: '/box/box_image_11.jpeg',
   },
   {
     id: '12',
@@ -132,7 +168,10 @@ export const FRAGRANCES: Fragrance[] = [
     category: 'womens',
     description: 'Douceur fruitée-florale pétillante',
     scentProfile:
-      "Inspiré de Chanel Chance Eau Tendre — Un nuage fruité-floral romantique, aérien et délicatement sucré de pétales de jacinthe rose doux, de quartiers de pamplemousse frais et de musc blanc lisse.",
+      'Jacinthe rose, pamplemousse frais et musc blanc. Un nuage fruité-floral romantique et aérien, délicatement sucré.',
     pills: ['Fruité', 'Floral', 'Doux'],
+    inspiredBy: 'Profil olfactif inspiré de Chanel Chance Eau Tendre',
+    bottle: '/bottle/bottle_12.jpeg',
+    box: '/box/box_image_12.jpeg',
   },
 ];

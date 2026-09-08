@@ -7,7 +7,7 @@ import {
 
 const ITEMS = [
   { icon: Truck, label: 'Livraison Rapide', sub: 'Partout au Maroc' },
-  { icon: Handshake, label: 'Paiement COD', sub: 'À la livraison' },
+  { icon: Handshake, label: 'Paiement à la livraison', sub: 'Payez uniquement à réception' },
   { icon: RefreshCcw, label: 'Retour Facile', sub: 'Satisfait ou remboursé' },
   { icon: Headphones, label: 'Support Client', sub: '7j/7' },
 ];
