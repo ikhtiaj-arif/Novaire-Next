@@ -1,8 +1,9 @@
-import { Truck, Handshake } from 'lucide-react';
+import { Truck, Handshake } from "lucide-react";
+import Image from "next/image";
 
 const TRUST_BADGES = [
-  { icon: Truck, label: 'Livraison Rapide partout au Maroc' },
-  { icon: Handshake, label: 'Paiement à la Livraison (COD)' },
+  { icon: Truck, label: "Livraison Rapide partout au Maroc" },
+  { icon: Handshake, label: "Paiement à la Livraison (COD)" },
 ];
 
 export function Hero({ price }: { price: number }) {
@@ -13,7 +14,7 @@ export function Hero({ price }: { price: number }) {
         aria-hidden="true"
         style={{
           background:
-            'radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.18) 0%, transparent 60%)',
+            "radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.18) 0%, transparent 60%)",
         }}
       />
 
@@ -39,12 +40,15 @@ export function Hero({ price }: { price: number }) {
           ))}
         </div>
 
-        <div
-          className="relative mt-12 aspect-square w-full max-w-sm overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-gold/20 via-card to-gold/5"
-          aria-label="Image du flacon NOVAIRE"
-          role="img"
-        >
-          <div className="absolute inset-0 animate-shimmer" aria-hidden="true" />
+        <div className="relative mt-12 w-full max-w-sm overflow-hidden rounded-2xl">
+          <Image
+            src="/bottle-hero.png"
+            alt="Flacon NOVAIRE — Haute Parfumerie Fine"
+            width={600}
+            height={600}
+            className="w-full h-auto object-cover"
+            priority
+          />
         </div>
 
         <p className="mt-4 text-sm font-light text-muted-foreground sm:text-base">

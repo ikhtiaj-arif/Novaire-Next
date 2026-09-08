@@ -1,10 +1,11 @@
-'use client';
+"use client";
 
-import { Minus, Plus } from 'lucide-react';
-import type { Fragrance } from '@/lib/fragrances';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { useInView } from '@/hooks/useInView';
+import { Minus, Plus } from "lucide-react";
+import type { Fragrance } from "@/lib/fragrances";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { useInView } from "@/hooks/useInView";
+import Image from "next/image";
 
 export function ProductCard({
   fragrance,
@@ -28,16 +29,17 @@ export function ProductCard({
       ref={ref}
       style={{ animationDelay: `${delay * 60}ms` }}
       className={`group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg ${
-        inView ? 'animate-fade-up' : 'opacity-0'
+        inView ? "animate-fade-up" : "opacity-0"
       }`}
     >
-      <div
-        className="relative aspect-square w-full overflow-hidden"
-        aria-label={`Parfum ${fragrance.name}`}
-        role="img"
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-gold/20 via-card to-gold/5" />
-        <div className="absolute inset-0 animate-shimmer opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      <div className="relative aspect-square w-full overflow-hidden">
+        <Image
+          src="/bottle-card.png"
+          alt={`NOVAIRE ${fragrance.num} — ${fragrance.name}`}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        />
       </div>
 
       <div className="flex flex-1 flex-col p-4 sm:p-5">
@@ -45,7 +47,9 @@ export function ProductCard({
           <span className="text-[11px] font-semibold tracking-[0.2em] text-gold">
             NOVAIRE
           </span>
-          <span className="text-[11px] text-muted-foreground">{fragrance.num}</span>
+          <span className="text-[11px] text-muted-foreground">
+            {fragrance.num}
+          </span>
         </div>
 
         <h3 className="font-heading mt-1 text-lg font-bold text-foreground">
