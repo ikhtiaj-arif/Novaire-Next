@@ -8,6 +8,7 @@ import { useOrderModal } from '@/hooks/useOrderModal';
 import { Hero } from '@/components/landing/Hero';
 import { TrustStrip } from '@/components/landing/TrustStrip';
 import { ProductGrid } from '@/components/landing/ProductGrid';
+import { WhyNovaire } from '@/components/landing/WhyNovaire';
 import { OrderModal, type OrderPayload } from '@/components/landing/OrderModal';
 
 export function LandingPage({
@@ -52,10 +53,9 @@ export function LandingPage({
       <ProductGrid
         fragrances={FRAGRANCES}
         price={price}
-        getCardQuantity={modal.getCardQuantity}
-        onCardQuantityChange={modal.setCardQuantity}
         onOrder={modal.openFor}
       />
+      <WhyNovaire />
       <OrderModal
         open={modal.open}
         onOpenChange={(open) => {
