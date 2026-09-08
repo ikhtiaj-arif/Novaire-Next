@@ -34,7 +34,7 @@ export function ProductCard({
     >
       <div className="relative aspect-square w-full overflow-hidden">
         <Image
-          src="/bottle-card.png"
+          src="/card-bottle.png"
           alt={`NOVAIRE ${fragrance.num} — ${fragrance.name}`}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"

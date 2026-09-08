@@ -125,7 +125,7 @@ export function OrderModal({
   };
 
   const summary = scent && (
-    <div className="rounded-xl border border-border bg-muted/40 p-4">
+    <div className="rounded-xl border border-border bg-muted/40 p-4 mt-6 lg:mt-3">
       <div className="flex items-center justify-between gap-4">
         <div>
           <div className="text-[11px] font-semibold tracking-[0.2em] text-gold">
@@ -288,11 +288,10 @@ export function OrderModal({
         /* Desktop: centered dialog */
         <Dialog open={open} onOpenChange={onOpenChange}>
           <DialogContent
-            overlayClassName="lg:hidden"
             className="hidden lg:grid lg:max-w-md"
           >
             <DialogTitle className="sr-only">Votre commande</DialogTitle>
-            <div className="pr-6">{inner}</div>
+            <div className="p-4">{inner}</div>
           </DialogContent>
         </Dialog>
       ) : (
