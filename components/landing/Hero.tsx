@@ -1,4 +1,4 @@
-import { ArrowDown, Truck, WalletCards, Wine } from "lucide-react";
+import { ArrowDown, Droplets, Truck, WalletCards } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -124,7 +124,7 @@ export function Hero({ price }: { price: number }) {
             <div className="mt-9 flex flex-wrap items-center gap-y-4">
               {/* Extrait */}
               <div className="flex items-center gap-3 pr-5">
-                <Wine className="h-5 w-5 stroke-[1.2] text-gold" />
+                <Droplets className="h-5 w-5 stroke-[1.2] text-gold" />
 
                 <div>
                   <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-white/85">
