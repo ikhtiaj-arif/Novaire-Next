@@ -15,33 +15,37 @@ declare global {
   }
 }
 
-export function trackConfirmOrder(data: {
+export function trackSubmitOrder(payload: {
+  price: number;
   scent: string;
   variant: string;
-  price: number;
-  quantity?: number;
 }) {
-  if (typeof window === 'undefined') return;
-
   // Meta (Facebook) Pixel
-  if (typeof window.fbq === 'function') {
-    window.fbq('trackCustom', 'ConfirmOrder', {
-      scent: data.scent,
-      variant: data.variant,
-      price: data.price,
-      quantity: data.quantity || 1,
-      currency: 'MAD',
-    });
+  try {
+    if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
+      window.fbq('track', 'Lead', {
+        value: payload.price,
+        currency: 'MAD',
+        content_name: payload.scent,
+        content_category: `Variant ${payload.variant}`,
+      });
+    }
+  } catch (e) {
+    console.warn('Meta pixel error:', e);
   }
 
   // TikTok Pixel
-  if (window.ttq && typeof window.ttq.track === 'function') {
-    window.ttq.track('ConfirmOrder', {
-      scent: data.scent,
-      variant: data.variant,
-      price: data.price,
-      quantity: data.quantity || 1,
-      currency: 'MAD',
-    });
+  try {
+    const ttq = typeof window !== 'undefined' ? window.ttq : undefined;
+    if (ttq && typeof ttq.track === 'function') {
+      ttq.track('SubmitForm', {
+        value: payload.price,
+        currency: 'MAD',
+        content_name: payload.scent,
+        contents: [{ content_name: payload.scent, price: payload.price }],
+      });
+    }
+  } catch (e) {
+    console.warn('TikTok pixel error:', e);
   }
 }
