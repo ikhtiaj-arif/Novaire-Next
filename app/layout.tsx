@@ -4,6 +4,7 @@ import { Inter, Playfair_Display } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import { Header } from '@/components/landing/Header';
 import { Footer } from '@/components/landing/Footer';
+import { MetaPageView } from '@/components/pixels/MetaPageView';
 import './globals.css';
 
 const playfair = Playfair_Display({
@@ -121,6 +122,14 @@ export default function RootLayout({
           `}
         </Script>
 
+        <noscript
+          dangerouslySetInnerHTML={{
+            __html: `<img height="1" width="1" src="https://www.facebook.com/tr?id=${
+              process.env.NEXT_PUBLIC_META_PIXEL_ID || 'PLACEHOLDER_META_PIXEL_ID'
+            }&ev=PageView&noscript=1"/>`,
+          }}
+        />
+
         {/* TikTok Pixel */}
         <Script id="tiktok-pixel" strategy="afterInteractive">
           {`
@@ -148,6 +157,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <MetaPageView />
           <Header />
           {children}
           <Footer />

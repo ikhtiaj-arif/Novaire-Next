@@ -12,7 +12,7 @@ Pixel events only contain real data when real IDs are configured.
 **Before running pixel tests, set in `.env.local` (or Vercel env vars):**
 
 ```
-NEXT_PUBLIC_META_PIXEL_ID=<real Meta pixel ID>
+NEXT_PUBLIC_META_PIXEL_ID=<real meta pixel ID>
 NEXT_PUBLIC_TIKTOK_PIXEL_ID=<real TikTok pixel ID>
 ```
 
@@ -21,6 +21,11 @@ Then restart `npm run dev`.
 **Verify pixel events with one of:**
 - Browser extension: Meta Pixel Helper (Chrome), TikTok Pixel Helper (Chrome)
 - DevTools → Network → filter `fbevents` (Meta) or `analytics.tiktok.com` (TikTok)
+
+**Data matching (Meta):** on order submit, the customer's phone is normalized to
+E.164 (`06XXXXXXXX` → `+2126XXXXXXXX`) and sent as a SHA-256 hash in the `ph`
+field of the Meta `Lead` event. This enables Meta to match the action to a
+Facebook user. Use a phone in the form `06XXXXXXXX` or `+212XXXXXXXX` to test it.
 
 ---
 
@@ -84,17 +89,20 @@ Then restart `npm run dev`.
 
 ## 3. Pixel Test Cases (need real pixel IDs + Pixel Helper)
 
-### TC-09 — PageView fires on every visit
+### TC-09 — PageView fires on every page view (full load + SPA navigation)
 
 | Step | Expected result |
 |---|---|
-| Load any variant page | Meta Pixel Helper logs a `PageView`; TikTok Pixel Helper logs a `page` event |
+| Load any variant page (full load) | Meta Pixel Helper logs a `PageView`; TikTok Pixel Helper logs a `page` event |
+| Click the **À propos** link in the header (SPA navigation, no full reload) | A **new** Meta `PageView` fires for `/about` — the route-change handler covers client-side navigation |
+| Navigate to **Contact**, then back to the shop the same way | Exactly one `PageView` per navigation (no duplicates); the initial one is fired only by the base code on full page load |
+| View the page source (or view with JS disabled) | `<noscript><img …&ev=PageView&noscript=1/></noscript>` is present in `<head>`, using the real pixel ID `<Your meta pixel id>` |
 
 ### TC-10 — Meta 'Lead' event on order submit
 
 | Step | Expected result |
 |---|---|
-| Submit the COD order form | Meta Pixel Helper fires **`Lead`** with params: `value` = the price shown to that visitor (299, 399 or 499), `currency` = `MAD`, `content_name` = scent name, `content_category` = `Variant A` / `Variant B` / `Variant C` |
+| Submit the COD order form | Meta Pixel Helper fires **`Lead`** with params: `value` = the price shown to that visitor (299, 399 or 499), `currency` = `MAD`, `content_name` = scent name, `content_category` = `Variant A` / `Variant B` / `Variant C`, and `ph` = `[<hashed phone>]` |
 
 ### TC-11 — TikTok 'SubmitForm' event on order submit
 
@@ -108,7 +116,15 @@ Then restart `npm run dev`.
 |---|---|
 | In 3 fresh incognito windows, land on `/a`, `/b`, `/c` respectively and submit an order in each | Event `value` is **299** for the `/a` window, **399** for `/b`, **499** for `/c` — never mismatched |
 
-### TC-13 — Pixel failure never blocks the order
+### TC-13 — Data matching: phone is hashed into the Lead event
+
+| Step | Expected result |
+|---|---|
+| Submit the order with phone `0612345678` | The Meta `Lead` Network request payload contains `ph` = `["6103b272fa58c88b70a093b18e4165306fdce78d691156a8dba11750516e0443"]` (SHA-256 of `+212612345678`). Meta Pixel Helper shows the hashed/identified phone under Data matching |
+| Submit again with phone `+212 612 34 56 78` (spaces/country prefix) | Same hash as above — normalization strips non-digits and adds `+212` |
+| Submit with a non-Moroccan number (`+33123456789`) | Request still includes a `ph` hash (of `+33123456789`) — data matching works for any international number |
+
+### TC-14 — Pixel failure never blocks the order
 
 | Step | Expected result |
 |---|---|
@@ -125,6 +141,8 @@ Then restart `npm run dev`.
 | Cookie sticky | Refresh / navigate → variant unchanged | ☐ |
 | Prices correct | `/a`=299, `/b`=399, `/c`=499 | ☐ |
 | Real pixel IDs deployed | Submit order → Lead/SubmitForm appear in Meta & TikTok ad managers | ☐ |
+| PageView on SPA navigation | Click header links (À propos / Contact) → a new Meta `PageView` fires without a full reload | ☐ |
+| Data matching enabled | Submit order with a real phone → Meta `Lead` contains hashed `ph`; Pixel Helper shows Data matching | ☐ |
 
 ---
 
@@ -134,3 +152,5 @@ Then restart `npm run dev`.
 - **DevTools "Disable cache" is irrelevant here** — stickiness is cookie-based, not cache-based.
 - Changing a visitor's variant **requires deleting the `novaire_variant` cookie** (DevTools → Application → Cookies → delete → reload).
 - Pixel `value` uses the price **before** quantity multiplication (unit price), as specified by the client.
+- The `ph` hash in the Meta `Lead` event is computed client-side with the Web Crypto API (`crypto.subtle`), which requires `https` (or `localhost`) — it is harmless to ignore if hashing is unavailable.
+- Form doesn't collect an email, so data matching is phone-based. If an email field is ever added, hash it the same way and send it as `em` in the same `ph`/`em` object.

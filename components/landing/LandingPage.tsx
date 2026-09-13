@@ -39,6 +39,7 @@ export function LandingPage({
       scent: payload.scent,
       variant: variant.toUpperCase(),
       price: payload.price,
+      phone: payload.phone,
     });
 
     router.push('/thank-you');
