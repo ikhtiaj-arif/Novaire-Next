@@ -21,6 +21,13 @@ const inter = Inter({
   weight: ['300', '400', '500', '600', '700'],
 });
 
+// Accept both the canonical NEXT_PUBLIC_* name and the unprefixed fallback,
+// so the pixel IDs resolve regardless of which Vercel env var is set.
+const metaPixelId =
+  process.env.NEXT_PUBLIC_META_PIXEL_ID || process.env.META_PIXEL_ID || '';
+const tiktokPixelId =
+  process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID || process.env.TIKTOK_PIXEL_ID || '';
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://novaire.ma'),
   title: {
@@ -87,6 +94,8 @@ export default function RootLayout({
     <html
       lang="fr"
       suppressHydrationWarning
+      data-meta-pixel-id={metaPixelId}
+      data-tiktok-pixel-id={tiktokPixelId}
       className={`${playfair.variable} ${inter.variable}`}
     >
       <head>
@@ -117,18 +126,18 @@ export default function RootLayout({
             t.src=v;s=b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init','${process.env.NEXT_PUBLIC_META_PIXEL_ID || 'PLACEHOLDER_META_PIXEL_ID'}');
-            fbq('track','PageView');
+            ${metaPixelId ? `fbq('init','${metaPixelId}');` : "console.warn('[NOVAIRE] Meta pixel ID is not configured');"}
+            ${metaPixelId ? "fbq('track','PageView');" : ''}
           `}
         </Script>
 
-        <noscript
-          dangerouslySetInnerHTML={{
-            __html: `<img height="1" width="1" src="https://www.facebook.com/tr?id=${
-              process.env.NEXT_PUBLIC_META_PIXEL_ID || 'PLACEHOLDER_META_PIXEL_ID'
-            }&ev=PageView&noscript=1"/>`,
-          }}
-        />
+        {metaPixelId && (
+          <noscript
+            dangerouslySetInnerHTML={{
+              __html: `<img height="1" width="1" src="https://www.facebook.com/tr?id=${metaPixelId}&ev=PageView&noscript=1"/>`,
+            }}
+          />
+        )}
 
         {/* TikTok Pixel */}
         <Script id="tiktok-pixel" strategy="afterInteractive">
@@ -144,7 +153,7 @@ export default function RootLayout({
               ttq._o=ttq._o||{};ttq._o[e]=n||{};var a=document.createElement("script");
               a.type="text/javascript";a.async=!0;a.src=r+"?sdkid="+e+"&lib="+t;
               var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(a,s)};
-              ttq.load('${process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID || 'PLACEHOLDER_TIKTOK_PIXEL_ID'}');
+              ${tiktokPixelId ? `ttq.load('${tiktokPixelId}');` : "console.warn('[NOVAIRE] TikTok pixel ID is not configured');"}
               ttq.page();
             }(window, document, 'ttq');
           `}
