@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { FRAGRANCES } from '@/lib/fragrances';
 import type { Variant } from '@/lib/variants';
-import { trackConfirmOrder } from '@/lib/pixels';
+import { trackSubmitOrder } from '@/lib/pixels';
 import { useOrderModal } from '@/hooks/useOrderModal';
 import { Hero } from '@/components/landing/Hero';
 import { TrustStrip } from '@/components/landing/TrustStrip';
@@ -35,11 +35,11 @@ export function LandingPage({
 
     if (!response.ok) return false;
 
-    trackConfirmOrder({
+    trackSubmitOrder({
       scent: payload.scent,
       variant: variant.toUpperCase(),
       price: payload.price,
-      quantity: payload.quantity,
+      phone: payload.phone,
     });
 
     router.push('/thank-you');
