@@ -49,7 +49,7 @@ export async function trackSubmitOrder(payload: {
   try {
     if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
       const ph = await sha256Hex(normalizePhone(payload.phone));
-      window.fbq('track', 'Lead', {
+      window.fbq('track', 'Purchase', {
         value: payload.price,
         currency: 'MAD',
         content_name: payload.scent,
