@@ -16,6 +16,7 @@ export function MetaPageView() {
     }
 
     if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
+      // console.log('[pixel:PageView]', { pathname });
       window.fbq('track', 'PageView');
     }
   }, [pathname]);

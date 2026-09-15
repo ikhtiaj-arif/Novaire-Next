@@ -36,9 +36,11 @@ export function LandingPage({
     if (!response.ok) return false;
 
     trackSubmitOrder({
+      name: payload.name,
       scent: payload.scent,
       variant: variant.toUpperCase(),
       price: payload.price,
+      totalPrice: payload.totalPrice,
       phone: payload.phone,
     });
 
