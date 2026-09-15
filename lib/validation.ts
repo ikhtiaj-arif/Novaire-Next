@@ -1,4 +1,7 @@
-export const PHONE_REGEX = /^(\+212|06|07)[0-9]{8}$/;
+export function isValidMoroccanPhone(phone: string): boolean {
+  const normalized = phone.replace(/[\s.-]/g, '');
+  return /^(?:0[67]\d{8}|\+212[67]\d{8})$/.test(normalized);
+}
 
 export interface OrderFields {
   name: string;
@@ -16,8 +19,9 @@ export function validateName(name: string): string | undefined {
 }
 
 export function validatePhone(phone: string): string | undefined {
-  if (!phone.trim()) return 'Numéro invalide (ex: 06XXXXXXXX)';
-  if (!PHONE_REGEX.test(phone.trim())) return 'Numéro invalide (ex: 06XXXXXXXX)';
+  if (!phone.trim() || !isValidMoroccanPhone(phone.trim())) {
+    return 'Veuillez entrer un numéro de téléphone marocain valide.';
+  }
   return undefined;
 }
 

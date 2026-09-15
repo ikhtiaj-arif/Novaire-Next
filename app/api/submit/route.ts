@@ -11,6 +11,7 @@ interface LeadPayload {
   quantity?: unknown;
   variant?: unknown;
   price?: unknown;
+  totalPrice?: unknown;
 }
 
 export async function POST(request: Request) {

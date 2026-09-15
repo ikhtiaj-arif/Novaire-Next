@@ -40,7 +40,9 @@ function normalizePhone(phone: string): string {
 }
 
 export async function trackSubmitOrder(payload: {
+  name: string;
   price: number;
+  totalPrice: number;
   scent: string;
   variant: string;
   phone: string;
@@ -49,13 +51,15 @@ export async function trackSubmitOrder(payload: {
   try {
     if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
       const ph = await sha256Hex(normalizePhone(payload.phone));
-      window.fbq('track', 'Purchase', {
-        value: payload.price,
+      const metaData = {
+        value: payload.totalPrice,
         currency: 'MAD',
         content_name: payload.scent,
         content_category: `Variant ${payload.variant}`,
         ...(ph ? { ph: [ph] } : {}),
-      });
+      };
+      // console.log('[pixel:Meta]', metaData);
+      window.fbq('track', 'Purchase', metaData);
     }
   } catch (e) {
     console.warn('Meta pixel error:', e);
@@ -66,7 +70,7 @@ export async function trackSubmitOrder(payload: {
     const ttq = typeof window !== 'undefined' ? window.ttq : undefined;
     if (ttq && typeof ttq.track === 'function') {
       ttq.track('SubmitForm', {
-        value: payload.price,
+        value: payload.totalPrice,
         currency: 'MAD',
         content_name: payload.scent,
         contents: [{ content_name: payload.scent, price: payload.price }],

@@ -44,6 +44,7 @@ export interface OrderPayload {
   quantity: number;
   variant: string;
   price: number;
+  totalPrice: number;
 }
 
 interface OrderModalProps {
@@ -167,6 +168,7 @@ export function OrderModal({
         quantity,
         variant,
         price: unitPrice,
+        totalPrice: total,
       });
 
       if (!ok) {
@@ -292,7 +294,12 @@ export function OrderModal({
           inputMode="tel"
           placeholder="06XXXXXXXX"
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          maxLength={16}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (!/^[0-9+\s.-]*$/.test(value)) return;
+            setPhone(value);
+          }}
           aria-invalid={!!errors.phone}
         />
         {errors.phone && (
