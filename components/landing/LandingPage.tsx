@@ -6,9 +6,13 @@ import type { Variant } from '@/lib/variants';
 import { trackSubmitOrder } from '@/lib/pixels';
 import { useOrderModal } from '@/hooks/useOrderModal';
 import { Hero } from '@/components/landing/Hero';
+import { AboutNovaire } from '@/components/landing/AboutNovaire';
 import { TrustStrip } from '@/components/landing/TrustStrip';
 import { ProductGrid } from '@/components/landing/ProductGrid';
 import { WhyNovaire } from '@/components/landing/WhyNovaire';
+import { CustomerPhotos } from '@/components/landing/CustomerPhotos';
+import { PolicySection } from '@/components/landing/PolicySection';
+import { FAQ } from '@/components/landing/FAQ';
 import { OrderModal, type OrderPayload } from '@/components/landing/OrderModal';
 
 export function LandingPage({
@@ -51,6 +55,7 @@ export function LandingPage({
   return (
     <>
       <Hero price={price} />
+      <AboutNovaire />
       <TrustStrip />
       <ProductGrid
         fragrances={FRAGRANCES}
@@ -58,6 +63,9 @@ export function LandingPage({
         onOrder={modal.openFor}
       />
       <WhyNovaire />
+      <CustomerPhotos />
+      <PolicySection />
+      <FAQ />
       <OrderModal
         open={modal.open}
         onOpenChange={(open) => {

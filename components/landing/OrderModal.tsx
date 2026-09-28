@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from 'react';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { ChevronsUpDown, LoaderCircle, MapPin, Minus, Plus } from 'lucide-react';
+import { ChevronsUpDown, LoaderCircle, MapPin, Minus, Plus, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import type { Fragrance } from '@/lib/fragrances';
 import { validateOrder, type FieldErrors } from '@/lib/validation';
@@ -72,8 +72,8 @@ function CitySelect({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex flex-col gap-1.5">
-      <Label htmlFor="order-city">Ville</Label>
+    <div className="flex flex-col gap-1">
+      <Label htmlFor="order-city" className="text-sm">Ville</Label>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger
           render={
@@ -83,7 +83,7 @@ function CitySelect({
               role="combobox"
               aria-expanded={open}
               aria-invalid={!!error}
-              className="justify-between font-normal"
+              className="justify-between font-normal h-10"
             >
               {value || (
                 <span className="text-muted-foreground">
@@ -119,6 +119,41 @@ function CitySelect({
         </PopoverContent>
       </Popover>
       {error && <p className="text-xs text-destructive">{error}</p>}
+    </div>
+  );
+}
+
+function ReassuranceBlock() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="space-y-0 border-t border-border">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex items-center justify-between py-3 px-0 hover:opacity-75 transition-opacity"
+      >
+        <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+          Ce qui se passe après votre commande
+        </p>
+        <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+
+      {isOpen && (
+        <div className="space-y-3 pb-3 border-t border-border pt-3">
+          <div className="flex items-start gap-3">
+            <span className="text-gold font-bold text-xs shrink-0 leading-none mt-0.5">①</span>
+            <p className="text-xs text-muted-foreground leading-relaxed">Vous soumettez votre commande — aucun paiement en ligne.</p>
+          </div>
+          <div className="flex items-start gap-3">
+            <span className="text-gold font-bold text-xs shrink-0 leading-none mt-0.5">②</span>
+            <p className="text-xs text-muted-foreground leading-relaxed">Notre équipe vous appelle pour confirmer votre commande et l&apos;adresse.</p>
+          </div>
+          <div className="flex items-start gap-3">
+            <span className="text-gold font-bold text-xs shrink-0 leading-none mt-0.5">③</span>
+            <p className="text-xs text-muted-foreground leading-relaxed">Vous recevez votre parfum en 2–4 jours. Vous payez à la livraison, en espèces.</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -191,13 +226,13 @@ export function OrderModal({
   };
 
   const summary = scent && (
-    <div className="rounded-xl border border-border bg-muted/40 p-4  lg:mt-3">
-      <div className="flex items-center justify-between gap-4">
+    <div className="rounded-lg border border-border bg-muted/30 p-3">
+      <div className="flex items-center justify-between gap-3 mb-2">
         <div>
-          <div className="text-[11px] font-semibold tracking-[0.2em] text-gold">
+          <div className="text-[10px] font-semibold tracking-[0.15em] text-gold">
             NOVAIRE
           </div>
-          <div className="font-heading mt-0.5 text-base font-bold text-foreground">
+          <div className="font-heading text-sm font-bold text-foreground">
             {scent.num} — {scent.name}
           </div>
         </div>
@@ -207,10 +242,11 @@ export function OrderModal({
             size="icon-sm"
             aria-label="Réduire la quantité"
             onClick={onQuantityDecrement}
+            className="h-6 w-6"
           >
-            <Minus className="h-3.5 w-3.5" aria-hidden="true" />
+            <Minus className="h-3 w-3" aria-hidden="true" />
           </Button>
-          <span className="w-6 text-center text-sm font-medium text-foreground">
+          <span className="w-5 text-center text-xs font-medium text-foreground">
             {quantity}
           </span>
           <Button
@@ -218,60 +254,61 @@ export function OrderModal({
             size="icon-sm"
             aria-label="Augmenter la quantité"
             onClick={onQuantityIncrement}
+            className="h-6 w-6"
           >
-            <Plus className="h-3.5 w-3.5" aria-hidden="true" />
+            <Plus className="h-3 w-3" aria-hidden="true" />
           </Button>
         </div>
       </div>
-      <Separator className="mt-3 mb-3" />
-      <div className="flex items-center justify-between">
-        <span className="text-sm text-muted-foreground">
+      <Separator className="my-2" />
+      <div className="flex items-center justify-between text-xs">
+        <span className="text-muted-foreground">
           {quantity} × {unitPrice} DH
         </span>
-        <span className="text-lg font-bold text-gold">
-          {total} <span className="text-xs">DH</span>
+        <span className="font-bold text-gold">
+          {total} <span className="text-[10px]">DH</span>
         </span>
       </div>
     </div>
   );
 
   const scentHeader = scent && (
-    <div className="mb-4 text-center lg:text-left">
-      <div className="flex flex-col items-center gap-1 lg:flex-row lg:items-baseline lg:justify-between">
-        <span className="text-[11px] font-semibold tracking-[0.2em] text-gold">
+    <div className="text-center lg:text-left mb-4">
+      <div className="flex flex-col items-center gap-0.5 lg:flex-row lg:items-baseline lg:justify-between">
+        <span className="text-[10px] font-semibold tracking-[0.15em] text-gold">
           {scent.num}
         </span>
-        <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+        <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
           Extrait de Parfum · 50 ml
         </span>
       </div>
 
-      <h3 className="font-heading mt-1.5 text-xl font-bold text-foreground lg:text-2xl">
+      <h3 className="font-heading mt-1 text-lg font-bold text-foreground lg:text-xl">
         {scent.name}
       </h3>
 
       <div className="mt-2 flex flex-wrap justify-center gap-1.5 lg:justify-start">
         {scent.pills.map((pill) => (
-          <Badge key={pill} variant="outline" className="text-[11px]">
+          <Badge key={pill} variant="outline" className="text-[10px]">
             {pill}
           </Badge>
         ))}
       </div>
 
-      <p className="mt-3 text-xs italic text-muted-foreground">
+      <p className="mt-2 text-xs italic text-muted-foreground">
         {scent.inspiredBy}
       </p>
 
-      <p className="mt-2 text-sm font-light leading-relaxed text-muted-foreground lg:text-left">
+      <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground lg:text-left">
         {scent.scentProfile}
       </p>
     </div>
   );
 
   const form = (
-    <form onSubmit={handleSubmit} noValidate className="mt-4 flex flex-col gap-4">
-      <div className="flex flex-col gap-1.5">
-        <Label htmlFor="order-name">Nom Complet</Label>
+    <form id="order-form" onSubmit={handleSubmit} noValidate className="flex flex-col gap-3 mt-4 pb-4 lg:pb-0">
+      <div className="flex flex-col gap-1">
+        <Label htmlFor="order-name" className="text-sm">Nom Complet</Label>
         <Input
           id="order-name"
           autoComplete="name"
@@ -279,14 +316,15 @@ export function OrderModal({
           value={name}
           onChange={(e) => setName(e.target.value)}
           aria-invalid={!!errors.name}
+          className="h-10 text-sm"
         />
         {errors.name && (
           <p className="text-xs text-destructive">{errors.name}</p>
         )}
       </div>
 
-      <div className="flex flex-col gap-1.5">
-        <Label htmlFor="order-phone">Téléphone</Label>
+      <div className="flex flex-col gap-1">
+        <Label htmlFor="order-phone" className="text-sm">Téléphone</Label>
         <Input
           id="order-phone"
           autoComplete="tel"
@@ -301,6 +339,7 @@ export function OrderModal({
             setPhone(value);
           }}
           aria-invalid={!!errors.phone}
+          className="h-10 text-sm"
         />
         {errors.phone && (
           <p className="text-xs text-destructive">{errors.phone}</p>
@@ -310,25 +349,17 @@ export function OrderModal({
       <CitySelect value={city} onChange={setCity} error={errors.city} />
 
       {errorMessage && (
-        <p className="rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2 text-xs text-destructive animate-shake">
+        <p className="rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2 text-xs text-destructive">
           {errorMessage}
         </p>
       )}
 
-      <Button
-        type="submit"
-        disabled={submitting}
-        className="w-full bg-gold text-black hover:bg-gold-hover animate-gold-glow-ring disabled:opacity-70"
-      >
-        {submitting ? (
-          <>
-            <LoaderCircle className="h-4 w-4 animate-spin" aria-hidden="true" />
-            Envoi en cours...
-          </>
-        ) : (
-          'CONFIRMER MA COMMANDE'
-        )}
-      </Button>
+      {/* Desktop-only reassurance */}
+      <div className="hidden lg:block rounded-lg border border-border bg-muted/20 p-3 space-y-2">
+        <p className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">
+          Paiement à la livraison · Aucun paiement en ligne
+        </p>
+      </div>
     </form>
   );
 
@@ -336,42 +367,64 @@ export function OrderModal({
     <>
       {isDesktop ? (
         <Dialog open={open} onOpenChange={onOpenChange}>
-          <DialogContent className="lg:max-w-3xl lg:max-h-[85dvh] lg:p-0 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] overflow-hidden">
+          <DialogContent className="lg:max-w-3xl lg:max-h-[90dvh] lg:p-0 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] overflow-hidden">
             <DialogTitle className="sr-only">Votre commande</DialogTitle>
 
             {/* Left — product images */}
             <div className="hidden flex-col items-center justify-center gap-6 bg-muted/30 p-8 lg:flex">
               {scent && (
                 <>
-                  <div className="relative aspect-[3/4] w-full max-w-[280px] overflow-hidden rounded-xl">
+                  <div className="relative aspect-[3/4] w-full max-w-[240px] overflow-hidden rounded-xl">
                     <Image
                       src={scent.bottle}
                       alt={`Flacon NOVAIRE ${scent.num} — ${scent.name}`}
                       fill
                       quality={85}
                       className="object-contain"
-                      sizes="(min-width: 1024px) 280px"
+                      sizes="(min-width: 1024px) 240px"
                     />
                   </div>
-                  <div className="relative aspect-[4/3] w-full max-w-[280px] overflow-hidden rounded-xl">
+                  <div className="relative aspect-[4/3] w-full max-w-[240px] overflow-hidden rounded-xl">
                     <Image
                       src={scent.box}
                       alt={`Coffret NOVAIRE ${scent.num} — ${scent.name}`}
                       fill
                       quality={85}
                       className="object-contain"
-                      sizes="(min-width: 1024px) 280px"
+                      sizes="(min-width: 1024px) 240px"
                     />
                   </div>
                 </>
               )}
             </div>
 
-            {/* Right — details + form */}
-            <div className="overflow-y-auto p-8">
-              {scentHeader}
-              {summary}
-              {form}
+            {/* Right — details + form with sticky button */}
+            <div className="flex flex-col h-[90dvh] overflow-hidden">
+              <div className="overflow-y-auto flex-1 p-6 lg:p-8">
+                {scentHeader}
+                {summary}
+                {form}
+                <ReassuranceBlock />
+              </div>
+
+              {/* Sticky submit button */}
+              <div className="border-t border-border bg-background p-4 lg:p-6">
+                <Button
+                  form="order-form"
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full bg-gold text-black hover:bg-gold-hover disabled:opacity-70 h-11 font-semibold text-sm"
+                >
+                  {submitting ? (
+                    <>
+                      <LoaderCircle className="h-4 w-4 animate-spin" aria-hidden="true" />
+                      Envoi en cours...
+                    </>
+                  ) : (
+                    'CONFIRMER MA COMMANDE'
+                  )}
+                </Button>
+              </div>
             </div>
           </DialogContent>
         </Dialog>
@@ -379,39 +432,62 @@ export function OrderModal({
         <Sheet open={open} onOpenChange={onOpenChange}>
           <SheetContent
             side="bottom"
-            className="max-h-[92dvh] overflow-y-auto rounded-t-2xl px-4 pb-8 pt-6"
+            className="max-h-[92dvh] overflow-hidden rounded-t-2xl px-4 pb-0 pt-4 flex flex-col"
           >
             <SheetTitle className="sr-only">Votre commande</SheetTitle>
 
-            {/* Mobile — bottle + box side by side */}
-            {scent && (
-              <div className="mb-4 flex gap-3">
-                <div className="relative aspect-[3/4] flex-1 overflow-hidden rounded-xl bg-muted/20">
-                  <Image
-                    src={scent.bottle}
-                    alt={`Flacon NOVAIRE ${scent.num} — ${scent.name}`}
-                    fill
-                    quality={85}
-                    className="object-contain"
-                    sizes="50vw"
-                  />
+            {/* Scrollable content */}
+            <div className="overflow-y-auto flex-1 pb-4">
+              {/* Mobile — bottle + box side by side */}
+              {scent && (
+                <div className="mb-4 flex gap-3">
+                  <div className="relative aspect-[3/4] flex-1 overflow-hidden rounded-lg bg-muted/20">
+                    <Image
+                      src={scent.bottle}
+                      alt={`Flacon NOVAIRE ${scent.num} — ${scent.name}`}
+                      fill
+                      quality={85}
+                      className="object-contain"
+                      sizes="50vw"
+                    />
+                  </div>
+                  <div className="relative aspect-[3/4] flex-1 overflow-hidden rounded-lg bg-muted/20">
+                    <Image
+                      src={scent.box}
+                      alt={`Coffret NOVAIRE ${scent.num} — ${scent.name}`}
+                      fill
+                      quality={85}
+                      className="object-contain"
+                      sizes="50vw"
+                    />
+                  </div>
                 </div>
-                <div className="relative aspect-[3/4] flex-1 overflow-hidden rounded-xl bg-muted/20">
-                  <Image
-                    src={scent.box}
-                    alt={`Coffret NOVAIRE ${scent.num} — ${scent.name}`}
-                    fill
-                    quality={85}
-                    className="object-contain"
-                    sizes="50vw"
-                  />
-                </div>
-              </div>
-            )}
+              )}
 
-            {scentHeader}
-            {summary}
-            {form}
+              {scentHeader}
+              {summary}
+              {form}
+              <ReassuranceBlock />
+            </div>
+
+            {/* Sticky footer with submit button */}
+            <div className="border-t border-border bg-background -mx-4 px-4 py-4 mt-4">
+              <Button
+                form="order-form"
+                type="submit"
+                disabled={submitting}
+                className="w-full bg-gold text-black hover:bg-gold-hover disabled:opacity-70 h-11 font-semibold text-sm"
+              >
+                {submitting ? (
+                  <>
+                    <LoaderCircle className="h-4 w-4 animate-spin" aria-hidden="true" />
+                    Envoi en cours...
+                  </>
+                ) : (
+                  'CONFIRMER MA COMMANDE'
+                )}
+              </Button>
+            </div>
           </SheetContent>
         </Sheet>
       )}

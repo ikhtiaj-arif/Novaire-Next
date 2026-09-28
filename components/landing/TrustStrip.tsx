@@ -1,21 +1,19 @@
 import {
   Truck,
-  Handshake,
-  RefreshCcw,
-  Headphones,
+  CreditCard,
+  Clock,
 } from 'lucide-react';
 
 const ITEMS = [
-  { icon: Truck, label: 'Livraison Rapide', sub: 'Partout au Maroc' },
-  { icon: Handshake, label: 'Paiement à la livraison', sub: 'Payez uniquement à réception' },
-  { icon: RefreshCcw, label: 'Retour Facile', sub: 'Satisfait ou remboursé' },
-  { icon: Headphones, label: 'Support Client', sub: '7j/7' },
+  { icon: Truck, label: 'Livraison offerte', sub: 'Partout au Maroc' },
+  { icon: CreditCard, label: 'Paiement à la livraison', sub: 'Aucun paiement en ligne' },
+  { icon: Clock, label: '2 à 4 jours ouvrables', sub: 'Selon votre ville' },
 ];
 
 export function TrustStrip() {
   return (
     <section className="mx-auto w-full max-w-6xl px-4 sm:px-6 pt-16">
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-6">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-6">
         {ITEMS.map(({ icon: Icon, label, sub }) => (
           <div
             key={label}
