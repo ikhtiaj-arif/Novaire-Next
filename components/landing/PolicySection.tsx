@@ -1,0 +1,56 @@
+'use client';
+
+import { useState } from 'react';
+import { ChevronDown } from 'lucide-react';
+
+const POLICIES = [
+  {
+    trigger: 'Annulation de commande',
+    content: 'Vous pouvez annuler votre commande sans frais avant son expédition. Contactez-nous dès que possible après votre commande.',
+  },
+  {
+    trigger: 'Article endommagé ou défectueux',
+    content: 'Si vous recevez un article endommagé, défectueux ou différent de votre commande, contactez-nous dans les 48 heures suivant la livraison, accompagné de photos ou d\'une vidéo. Après vérification, un remplacement sera organisé sans frais supplémentaires.',
+  },
+  {
+    trigger: 'Retour et remboursement',
+    content: 'Pour toute demande de rétractation, contactez-nous dans un délai de 7 jours suivant la réception. Le produit doit être non utilisé, non ouvert, dans son emballage d\'origine et en parfait état. Les frais de retour restent à la charge du client, sauf en cas d\'erreur de notre part ou de produit défectueux. Les remboursements ou échanges sont traités après réception et vérification du produit retourné.',
+  },
+];
+
+export function PolicySection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  return (
+    <section className="mx-auto w-full max-w-2xl px-4 py-16 sm:px-6">
+      <h2 className="font-heading mb-2 text-center text-2xl font-bold text-foreground sm:text-3xl">
+        Politique de retour &amp; échange
+      </h2>
+      <p className="mb-8 text-center text-sm text-muted-foreground">
+        Votre satisfaction est notre priorité.
+      </p>
+      <div className="flex flex-col divide-y divide-border rounded-xl border border-border bg-card overflow-hidden">
+        {POLICIES.map((item, i) => (
+          <div key={item.trigger}>
+            <button
+              type="button"
+              onClick={() => setOpenIndex(openIndex === i ? null : i)}
+              className="flex w-full items-center justify-between px-5 py-4 text-left text-sm font-semibold text-foreground hover:bg-muted/40 transition-colors"
+              aria-expanded={openIndex === i}
+            >
+              {item.trigger}
+              <ChevronDown
+                className={`h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200 ${openIndex === i ? 'rotate-180' : ''}`}
+              />
+            </button>
+            {openIndex === i && (
+              <div className="px-5 pb-5 text-sm font-light leading-relaxed text-muted-foreground">
+                {item.content}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
