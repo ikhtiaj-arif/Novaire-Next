@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useSyncExternalStore } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
@@ -37,8 +38,17 @@ export function Header() {
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <Link
           href="/a"
-          className="font-heading text-xl font-bold tracking-[0.25em] text-foreground"
+          className="flex items-center gap-2.5 font-heading text-xl font-bold tracking-[0.25em] text-foreground"
         >
+          <Image
+            src="/logo.svg"
+            alt=""
+            aria-hidden="true"
+            width={30}
+            height={30}
+            unoptimized
+            className="h-[30px] w-[30px] shrink-0"
+          />
           NOVAIRE
         </Link>
 

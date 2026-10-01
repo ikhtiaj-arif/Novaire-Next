@@ -8,7 +8,7 @@ export function Hero({ price }: { price: number }) {
       {/* Background */}
       <div className="absolute inset-0 -z-30">
         <Image
-          src="/hero_bg.jpg"
+          src="/hero_bg_2.jpg"
           alt=""
           fill
           priority
@@ -112,10 +112,10 @@ export function Hero({ price }: { price: number }) {
             </h1>
 
             {/* Description */}
-            <p className="mt-7 max-w-[390px] text-sm font-light leading-7 text-white/75 sm:text-base">
-              Des signatures olfactives inspirées
+            <p className="mt-7 max-w-[390px] text-sm font-light leading-7 text-white sm:text-base">
+              Des signatures olfactives inspirées des
               <br className="hidden sm:block" />
-              des icônes de la haute parfumerie.
+              {' icônes de la haute parfumerie.'}
             </p>
 
             {/* ========================================================
