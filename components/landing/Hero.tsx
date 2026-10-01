@@ -8,7 +8,7 @@ export function Hero({ price }: { price: number }) {
       {/* Background */}
       <div className="absolute inset-0 -z-30">
         <Image
-          src="/hero_bg.jpg"
+          src="/hero_bg_2.jpg"
           alt=""
           fill
           priority
