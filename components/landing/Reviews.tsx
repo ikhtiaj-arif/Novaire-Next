@@ -59,7 +59,7 @@ export function Reviews() {
   return (
     <section
       id="avis-clients"
-      className="mx-auto w-full max-w-6xl scroll-mt-24 px-4 py-16 sm:px-6 md:py-24"
+      className="mx-auto w-full max-w-6xl scroll-mt-24 px-4 py-12 sm:px-6 sm:py-16 md:py-24"
       aria-labelledby="avis-clients-title"
     >
       <div className="text-center">
@@ -74,16 +74,16 @@ export function Reviews() {
           Ils parlent de NOVAIRE
         </h2>
 
-        <p className="mx-auto mt-3 max-w-xl text-sm font-light leading-relaxed text-muted-foreground">
+        <p className="mx-auto mt-2 max-w-xl text-sm font-light leading-relaxed text-muted-foreground sm:mt-3">
           De vraies commandes, livrées et payées à la réception. Chaque photo
           et chaque avis vient d&rsquo;un client NOVAIRE.
         </p>
       </div>
 
-      <div className="mt-10 grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
+      <div className="mt-7 grid items-center gap-5 sm:mt-10 sm:gap-8 lg:grid-cols-2 lg:gap-14">
         {/* Left — client photo */}
         <div
-          className="relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden rounded-2xl border border-border bg-card lg:aspect-[4/5] lg:max-h-[620px] lg:max-w-none"
+          className="relative mx-auto aspect-[16/10] w-full max-w-sm overflow-hidden rounded-2xl border border-border bg-card sm:aspect-[3/4] lg:aspect-[4/5] lg:max-h-[620px] lg:max-w-none"
           style={{ touchAction: 'pan-y' }}
           onPointerDown={(e) => {
             pointerStart.current = e.clientX;
@@ -108,13 +108,13 @@ export function Reviews() {
         {/* Right — rating + review */}
         <div
           key={index}
-          className="animate-fade-in rounded-2xl border border-border bg-card p-6 sm:p-8"
+          className="animate-fade-in rounded-2xl border border-border bg-card p-5 sm:p-8"
           aria-live="polite"
         >
-          <Quote className="h-7 w-7 text-gold/40" aria-hidden="true" />
+          <Quote className="hidden h-7 w-7 text-gold/40 sm:block" aria-hidden="true" />
 
           {/* Stars */}
-          <div className="mt-4 flex items-center gap-3">
+          <div className="flex items-center gap-3 sm:mt-4">
             <div className="flex gap-1" role="img" aria-label={`Note : ${review.rating} sur 5`}>
               {Array.from({ length: 5 }, (_, star) => (
                 <Star
@@ -135,12 +135,12 @@ export function Reviews() {
           </div>
 
           {/* Review text */}
-          <blockquote className="mt-5 font-heading text-lg leading-relaxed text-foreground sm:text-xl">
+          <blockquote className="mt-3 font-heading text-base leading-relaxed text-foreground sm:mt-5 sm:text-lg lg:text-xl">
             &laquo;&nbsp;{review.text}&nbsp;&raquo;
           </blockquote>
 
           {/* Author */}
-          <div className="mt-6 flex items-center gap-3 border-t border-border pt-5">
+          <div className="mt-4 flex items-center gap-3 border-t border-border pt-4 sm:mt-6 sm:pt-5">
             <span className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 bg-gold/10 font-heading text-sm font-bold text-gold">
               {review.name.charAt(0)}
             </span>
@@ -156,7 +156,7 @@ export function Reviews() {
       </div>
 
       {/* Controls */}
-      <div className="mt-8 flex items-center justify-center gap-5">
+      <div className="mt-6 flex items-center justify-center gap-5 sm:mt-8">
         <button
           type="button"
           onClick={() => goTo(index - 1)}
