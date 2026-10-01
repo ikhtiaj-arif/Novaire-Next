@@ -10,7 +10,8 @@ import { Hero } from '@/components/landing/Hero';
 import { TrustStrip } from '@/components/landing/TrustStrip';
 import { ProductGrid } from '@/components/landing/ProductGrid';
 import { WhyNovaire } from '@/components/landing/WhyNovaire';
-import { CustomerPhotos } from '@/components/landing/CustomerPhotos';
+// import { CustomerPhotos } from '@/components/landing/CustomerPhotos';
+import { Reviews } from '@/components/landing/Reviews';
 import { PolicySection } from '@/components/landing/PolicySection';
 import { FAQ } from '@/components/landing/FAQ';
 import { OrderModal, type OrderPayload } from '@/components/landing/OrderModal';
@@ -63,7 +64,7 @@ export function LandingPage({
         onOrder={modal.openFor}
       />
       <WhyNovaire />
-      <CustomerPhotos />
+      <Reviews />
       <PolicySection />
       <FAQ />
       <OrderModal
