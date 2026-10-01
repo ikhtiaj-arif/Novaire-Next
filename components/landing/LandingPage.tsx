@@ -6,7 +6,7 @@ import type { Variant } from '@/lib/variants';
 import { trackSubmitOrder } from '@/lib/pixels';
 import { useOrderModal } from '@/hooks/useOrderModal';
 import { Hero } from '@/components/landing/Hero';
-import { AboutNovaire } from '@/components/landing/AboutNovaire';
+// import { AboutNovaire } from '@/components/landing/AboutNovaire';
 import { TrustStrip } from '@/components/landing/TrustStrip';
 import { ProductGrid } from '@/components/landing/ProductGrid';
 import { WhyNovaire } from '@/components/landing/WhyNovaire';
@@ -55,7 +55,7 @@ export function LandingPage({
   return (
     <>
       <Hero price={price} />
-      <AboutNovaire />
+      {/* <AboutNovaire /> */}
       <TrustStrip />
       <ProductGrid
         fragrances={FRAGRANCES}
