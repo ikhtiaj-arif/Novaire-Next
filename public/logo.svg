@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <g fill="#C9A84C">
+    <rect x="27" y="4" width="10" height="7" rx="2" />
+    <rect x="29.5" y="11" width="5" height="4" />
+    <path
+      fill-rule="evenodd"
+      d="M20 15h24a8 8 0 0 1 8 8v29a8 8 0 0 1-8 8H20a8 8 0 0 1-8-8V23a8 8 0 0 1 8-8ZM23 50V26h5l8 16V26h5v24h-5L28 34v16Z"
+    />
+  </g>
+</svg>
