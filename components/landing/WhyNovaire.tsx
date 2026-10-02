@@ -1,5 +1,6 @@
 import { Droplets, FlaskConical, Handshake, Truck } from 'lucide-react';
 import Image from 'next/image';
+import { Section, SectionHeading } from '@/components/landing/Section';
 
 const FEATURES = [
   {
@@ -26,11 +27,7 @@ const FEATURES = [
 
 export function WhyNovaire() {
   return (
-    <section
-      id="pourquoi-novaire"
-      className="mx-auto w-full max-w-6xl scroll-mt-24 px-4 mb-24 sm:px-6"
-      aria-labelledby="pourquoi-novaire-title"
-    >
+    <Section id="pourquoi-novaire" labelledBy="pourquoi-novaire-title">
       <div className="grid items-center gap-12 lg:grid-cols-2">
         {/* Bottle + box imagery */}
         <div className="relative rounded-2xl border border-border bg-card p-8">
@@ -63,14 +60,12 @@ export function WhyNovaire() {
 
         {/* Trust points */}
         <div>
-          <h2
-            id="pourquoi-novaire-title"
-            className="font-heading text-2xl font-bold text-foreground sm:text-3xl"
-          >
-            Pourquoi NOVAIRE&nbsp;?
-          </h2>
+          <SectionHeading
+            titleId="pourquoi-novaire-title"
+            title="Pourquoi NOVAIRE&nbsp;?"
+          />
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 md:mt-12">
             {FEATURES.map(({ icon: Icon, title, text }) => (
               <div
                 key={title}
@@ -88,6 +83,6 @@ export function WhyNovaire() {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

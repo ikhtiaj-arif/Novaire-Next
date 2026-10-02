@@ -273,7 +273,7 @@ export function OrderModal({
   );
 
   const scentHeader = scent && (
-    <div className="text-center lg:text-left mb-4">
+    <div className="text-center lg:text-left mb-5">
       <div className="flex flex-col items-center gap-0.5 lg:flex-row lg:items-baseline lg:justify-between">
         <span className="text-[10px] font-semibold tracking-[0.15em] text-gold">
           {scent.num}
@@ -306,7 +306,7 @@ export function OrderModal({
   );
 
   const form = (
-    <form id="order-form" onSubmit={handleSubmit} noValidate className="flex flex-col gap-3 mt-4 pb-4 lg:pb-0">
+    <form id="order-form" onSubmit={handleSubmit} noValidate className="mt-5 flex flex-col gap-3">
       <div className="flex flex-col gap-1">
         <Label htmlFor="order-name" className="text-sm">Nom Complet</Label>
         <Input
@@ -408,7 +408,7 @@ export function OrderModal({
               </div>
 
               {/* Sticky submit button */}
-              <div className="border-t border-border bg-background p-4 lg:p-6">
+              <div className="border-t border-border bg-background px-6 py-5 lg:px-8">
                 <Button
                   form="order-form"
                   type="submit"
@@ -440,7 +440,7 @@ export function OrderModal({
             <div className="overflow-y-auto flex-1 pb-4">
               {/* Mobile — bottle + box side by side */}
               {scent && (
-                <div className="mb-4 flex gap-3">
+                <div className="mb-5 flex gap-3">
                   <div className="relative aspect-[3/4] flex-1 overflow-hidden rounded-lg bg-muted/20">
                     <Image
                       src={scent.bottle}
@@ -471,7 +471,7 @@ export function OrderModal({
             </div>
 
             {/* Sticky footer with submit button */}
-            <div className="border-t border-border bg-background -mx-4 px-4 py-4 mt-4">
+            <div className="border-t border-border bg-background -mx-4 px-4 py-4">
               <Button
                 form="order-form"
                 type="submit"

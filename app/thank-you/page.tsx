@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function ThankYouPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center py-20 px-4 relative overflow-hidden bg-background text-foreground">
+    <div className="flex flex-1 items-center justify-center overflow-hidden px-4 py-16 relative bg-background text-foreground sm:py-20">
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[600px] rounded-full pointer-events-none"
         aria-hidden="true"
@@ -55,7 +55,7 @@ export default function ThankYouPage() {
           <div>
             <Link
               href="/a"
-              className="inline-flex items-center justify-center border border-gold/30 text-gold hover:bg-gold hover:text-black rounded-full px-8 py-3 text-xs tracking-[0.15em] uppercase font-semibold transition-all duration-300"
+              className="focus-ring inline-flex h-11 items-center justify-center border border-gold/30 text-gold hover:bg-gold hover:text-black rounded-full px-8 text-xs tracking-[0.15em] uppercase font-semibold transition-all duration-300"
             >
               Retour à l&apos;accueil
             </Link>

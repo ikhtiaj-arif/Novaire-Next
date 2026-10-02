@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react';
+import { Section, SectionHeading } from '@/components/landing/Section';
 
 const REVIEWS = [
   {
@@ -57,30 +58,16 @@ export function Reviews() {
   const goTo = (next: number) => setIndex((next + total) % total);
 
   return (
-    <section
-      id="avis-clients"
-      className="mx-auto w-full max-w-6xl scroll-mt-24 px-4 py-12 sm:px-6 sm:py-16 md:py-24"
-      aria-labelledby="avis-clients-title"
-    >
-      <div className="text-center">
-        <span className="text-xs font-medium uppercase tracking-[0.35em] text-gold">
-          Ils témoignent
-        </span>
+    <Section id="avis-clients" labelledBy="avis-clients-title">
+      <SectionHeading
+        titleId="avis-clients-title"
+        eyebrow="Ils témoignent"
+        title="Ils parlent de NOVAIRE"
+        lede="De vraies commandes, livrées et payées à la réception. Chaque photo et chaque avis vient d&rsquo;un client NOVAIRE."
+        align="center"
+      />
 
-        <h2
-          id="avis-clients-title"
-          className="font-heading mt-2 text-2xl font-bold text-foreground sm:text-3xl"
-        >
-          Ils parlent de NOVAIRE
-        </h2>
-
-        <p className="mx-auto mt-2 max-w-xl text-sm font-light leading-relaxed text-muted-foreground sm:mt-3">
-          De vraies commandes, livrées et payées à la réception. Chaque photo
-          et chaque avis vient d&rsquo;un client NOVAIRE.
-        </p>
-      </div>
-
-      <div className="mt-7 grid items-center gap-5 sm:mt-10 sm:gap-8 lg:grid-cols-2 lg:gap-14">
+      <div className="mt-8 grid items-center gap-5 sm:gap-8 md:mt-12 lg:grid-cols-2 lg:gap-14">
         {/* Left — client photo */}
         <div
           className="relative mx-auto aspect-[16/10] w-full max-w-sm overflow-hidden rounded-2xl border border-border bg-card sm:aspect-[3/4] lg:aspect-[4/5] lg:max-h-[620px] lg:max-w-none"
@@ -111,10 +98,10 @@ export function Reviews() {
           className="animate-fade-in rounded-2xl border border-border bg-card p-5 sm:p-8"
           aria-live="polite"
         >
-          <Quote className="hidden h-7 w-7 text-gold/40 sm:block" aria-hidden="true" />
+          <Quote className="h-6 w-6 text-gold/40 sm:h-7 sm:w-7" aria-hidden="true" />
 
           {/* Stars */}
-          <div className="flex items-center gap-3 sm:mt-4">
+          <div className="mt-3 flex items-center gap-3 sm:mt-4">
             <div className="flex gap-1" role="img" aria-label={`Note : ${review.rating} sur 5`}>
               {Array.from({ length: 5 }, (_, star) => (
                 <Star
@@ -135,12 +122,12 @@ export function Reviews() {
           </div>
 
           {/* Review text */}
-          <blockquote className="mt-3 font-heading text-base leading-relaxed text-foreground sm:mt-5 sm:text-lg lg:text-xl">
+          <blockquote className="mt-4 font-heading text-base leading-relaxed text-foreground sm:text-lg lg:text-xl">
             &laquo;&nbsp;{review.text}&nbsp;&raquo;
           </blockquote>
 
           {/* Author */}
-          <div className="mt-4 flex items-center gap-3 border-t border-border pt-4 sm:mt-6 sm:pt-5">
+          <div className="mt-5 flex items-center gap-3 border-t border-border pt-5">
             <span className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 bg-gold/10 font-heading text-sm font-bold text-gold">
               {review.name.charAt(0)}
             </span>
@@ -156,17 +143,17 @@ export function Reviews() {
       </div>
 
       {/* Controls */}
-      <div className="mt-6 flex items-center justify-center gap-5 sm:mt-8">
+      <div className="mt-8 flex items-center justify-center gap-5">
         <button
           type="button"
           onClick={() => goTo(index - 1)}
           aria-label="Avis précédent"
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:border-gold/40 hover:text-gold"
+          className="focus-ring flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:border-gold/40 hover:text-gold"
         >
           <ChevronLeft className="h-4 w-4" aria-hidden="true" />
         </button>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center">
           {REVIEWS.map(({ name }, dot) => (
             <button
               key={name}
@@ -174,10 +161,14 @@ export function Reviews() {
               onClick={() => goTo(dot)}
               aria-label={`Afficher l'avis de ${name}`}
               aria-current={dot === index}
-              className={`h-2 rounded-full transition-all ${
-                dot === index ? 'w-6 bg-gold' : 'w-2 bg-gold/30 hover:bg-gold/60'
-              }`}
-            />
+              className="focus-ring flex h-11 w-6 items-center justify-center"
+            >
+              <span
+                className={`block h-2 rounded-full transition-all ${
+                  dot === index ? 'w-6 bg-gold' : 'w-2 bg-gold/30 hover:bg-gold/60'
+                }`}
+              />
+            </button>
           ))}
         </div>
 
@@ -185,11 +176,11 @@ export function Reviews() {
           type="button"
           onClick={() => goTo(index + 1)}
           aria-label="Avis suivant"
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:border-gold/40 hover:text-gold"
+          className="focus-ring flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:border-gold/40 hover:text-gold"
         >
           <ChevronRight className="h-4 w-4" aria-hidden="true" />
         </button>
       </div>
-    </section>
+    </Section>
   );
 }

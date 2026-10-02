@@ -1,15 +1,21 @@
 import Image from 'next/image';
+import { Section, SectionHeading } from '@/components/landing/Section';
 
 export function AboutNovaire() {
   return (
-    <section className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 md:py-24">
+    <Section>
       <div className="grid items-center gap-12 lg:grid-cols-2">
-        
         {/* Left — text content */}
         <div>
-          <h2 className="font-heading text-3xl font-bold text-foreground sm:text-4xl">
-            L&apos;art du parfum,<br />autrement.
-          </h2>
+          <SectionHeading
+            title={
+              <>
+                L&apos;art du parfum,
+                <br />
+                autrement.
+              </>
+            }
+          />
           <p className="mt-6 text-sm font-light leading-7 text-muted-foreground sm:text-base">
             Novaire est une marque marocaine de parfumerie née d&apos;une conviction simple : chacun mérite une signature olfactive élégante, intense et accessible. Notre collection réunit 12 fragrances pour homme et femme, sélectionnées pour accompagner chaque personnalité et chaque occasion. Présentées en format 50 ml avec une concentration de 25 %, les créations Novaire associent une identité minimaliste à une expérience olfactive affirmée. Trouvez celle qui deviendra votre signature.
           </p>
@@ -40,6 +46,6 @@ export function AboutNovaire() {
           />
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

@@ -2,7 +2,7 @@ import { ArrowDown, Droplets, Truck, WalletCards } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export function Hero({ price }: { price: number }) {
+export function Hero() {
   return (
     <section className="relative isolate min-h-[760px] overflow-hidden bg-black sm:min-h-[850px]">
       {/* Background */}
@@ -195,6 +195,7 @@ export function Hero({ price }: { price: number }) {
                 }}
                 className="
                   group
+                  focus-ring
                   inline-flex
                   items-center
                   gap-4
@@ -282,6 +283,7 @@ export function Hero({ price }: { price: number }) {
               })
           }
           className="
+            focus-ring
             absolute
             bottom-7
             left-1/2
