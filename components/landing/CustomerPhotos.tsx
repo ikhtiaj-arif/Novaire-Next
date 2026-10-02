@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Section, SectionHeading } from '@/components/landing/Section';
 
 const PHOTOS = [
   { src: '/customer/photo_1.jpg', alt: 'Photo d’un parfum NOVAIRE reçu d’un client' },
@@ -8,14 +9,14 @@ const PHOTOS = [
 
 export function CustomerPhotos() {
   return (
-    <section className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
-      <h2 className="font-heading mb-3 text-center text-2xl font-bold text-foreground sm:text-3xl">
-        Reçus par nos clients
-      </h2>
-      <p className="mb-8 text-center text-sm text-muted-foreground">
-        Photos envoyées par nos clients
-      </p>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
+    <Section>
+      <SectionHeading
+        title="Reçus par nos clients"
+        lede="Photos envoyées par nos clients"
+        align="center"
+      />
+
+      <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4 md:mt-12">
         {PHOTOS.map((photo) => (
           <div
             key={photo.src}
@@ -31,6 +32,6 @@ export function CustomerPhotos() {
           </div>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }

@@ -56,21 +56,12 @@ export const metadata: Metadata = {
     description:
       "L'excellence des plus grandes maisons de parfum mondiales enfin accessible au Maroc.",
     siteName: 'NOVAIRE',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'NOVAIRE — Haute Parfumerie Fine',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'NOVAIRE | Haute Parfumerie Fine',
     description:
       "L'excellence des plus grandes maisons de parfum mondiales enfin accessible au Maroc.",
-    images: ['/og-image.png'],
   },
   robots: {
     index: true,
@@ -159,7 +150,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="bg-background text-foreground antialiased selection:bg-gold/30 selection:text-foreground">
+      <body className="flex min-h-dvh flex-col bg-background text-foreground antialiased selection:bg-gold/30 selection:text-foreground">
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -168,7 +159,7 @@ export default function RootLayout({
         >
           <MetaPageView />
           <Header />
-          {children}
+          <main className="flex flex-1 flex-col">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>

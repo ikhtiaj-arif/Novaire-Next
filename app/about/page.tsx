@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Sparkles, Handshake, Truck, GlassWater } from 'lucide-react';
+import { Section, SectionHeading } from '@/components/landing/Section';
 
 export const metadata: Metadata = {
   title: 'À propos | NOVAIRE',
@@ -32,23 +33,17 @@ const VALUES = [
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
-      <div className="text-center">
-        <span className="text-xs font-medium uppercase tracking-[0.35em] text-gold">
-          NOVAIRE
-        </span>
-        <h1 className="font-heading mt-2 text-3xl font-bold text-foreground sm:text-4xl">
-          À propos de NOVAIRE
-        </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-sm font-light leading-relaxed text-muted-foreground sm:text-base">
-          NOVAIRE est née d’une conviction simple : l’excellence de la haute
-          parfumerie mondiale doit être accessible à tous au Maroc. Nous créons
-          des parfums inspirés des plus grands maîtres parfumeurs, avec un
-          sillage intense et une élégance intemporelle.
-        </p>
-      </div>
+    <Section as="div">
+      <SectionHeading
+        as="h1"
+        size="page"
+        eyebrow="NOVAIRE"
+        title="À propos de NOVAIRE"
+        lede="NOVAIRE est née d’une conviction simple : l’excellence de la haute parfumerie mondiale doit être accessible à tous au Maroc. Nous créons des parfums inspirés des plus grands maîtres parfumeurs, avec un sillage intense et une élégance intemporelle."
+        align="center"
+      />
 
-      <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:mt-12 lg:grid-cols-4">
         {VALUES.map(({ icon: Icon, title, text }) => (
           <div
             key={title}
@@ -66,6 +61,6 @@ export default function AboutPage() {
           </div>
         ))}
       </div>
-    </div>
+    </Section>
   );
 }

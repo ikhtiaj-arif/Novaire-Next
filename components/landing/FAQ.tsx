@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { Section, SectionHeading } from '@/components/landing/Section';
 
 const FAQS = [
   {
@@ -34,17 +35,20 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="mx-auto w-full max-w-2xl px-4 py-16 sm:px-6">
-      <h2 className="font-heading mb-8 text-center text-2xl font-bold text-foreground sm:text-3xl">
-        Questions fréquentes
-      </h2>
-      <div className="flex flex-col divide-y divide-border rounded-xl border border-border bg-card overflow-hidden">
+    <Section narrow labelledBy="faq-title">
+      <SectionHeading
+        titleId="faq-title"
+        title="Questions fréquentes"
+        align="center"
+      />
+
+      <div className="mt-8 flex flex-col divide-y divide-border rounded-xl border border-border bg-card overflow-hidden md:mt-12">
         {FAQS.map((item, i) => (
           <div key={item.q}>
             <button
               type="button"
               onClick={() => setOpenIndex(openIndex === i ? null : i)}
-              className="flex w-full items-center justify-between px-5 py-4 text-left text-sm font-semibold text-foreground hover:bg-muted/40 transition-colors"
+              className="focus-ring flex w-full items-center justify-between px-5 py-4 text-left text-sm font-semibold text-foreground hover:bg-muted/40 transition-colors"
               aria-expanded={openIndex === i}
             >
               {item.q}
@@ -60,6 +64,6 @@ export function FAQ() {
           </div>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }

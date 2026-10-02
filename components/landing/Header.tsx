@@ -38,16 +38,16 @@ export function Header() {
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <Link
           href="/a"
-          className="flex items-center gap-2.5 font-heading text-xl font-bold tracking-[0.25em] text-foreground"
+          className="focus-ring flex items-center gap-2.5 rounded-sm font-heading text-xl font-bold tracking-[0.25em] text-foreground"
         >
           <Image
-            src="/logo.svg"
+            src="/logo/mark.png"
             alt=""
             aria-hidden="true"
-            width={30}
-            height={30}
+            width={21}
+            height={26}
             unoptimized
-            className="h-[30px] w-[30px] shrink-0"
+            className="h-[26px] w-[21px] shrink-0"
           />
           NOVAIRE
         </Link>

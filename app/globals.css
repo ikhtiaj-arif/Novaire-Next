@@ -48,6 +48,23 @@
 }
 
 /* ============================================================
+   Vertical rhythm scale
+   ------------------------------------------------------------
+   RULE: a section owns its TOP padding only — never py-*, never
+   mb-*. Adjacent sections therefore never stack padding, so the
+   gap between any two sections is exactly one rhythm value.
+
+   --spacing-rhythm    → 64px  (mobile,  < 768px)
+   --spacing-rhythm-lg → 96px  (desktop, >= 768px)
+   ============================================================ */
+@theme {
+  --spacing-rhythm: 4rem;
+  --spacing-rhythm-lg: 6rem;
+
+  --container-6xl: 72rem;
+}
+
+/* ============================================================
    Light Mode (default) — CSS Custom Properties
    ============================================================ */
 :root {
@@ -197,6 +214,37 @@ body {
   40%      { transform: translateX(6px); }
   60%      { transform: translateX(-4px); }
   80%      { transform: translateX(4px); }
+}
+
+/* ============================================================
+   Components
+   ------------------------------------------------------------
+   Control height scale (keep every interactive control on it):
+     h-9  (36px) — icon-only buttons
+     h-10 (40px) — inputs, selects, secondary actions
+     h-11 (44px) — primary CTAs (also the minimum tap target)
+   ============================================================ */
+@layer components {
+  /* Single gutter + max-width shared by every section and page root. */
+  .container-page {
+    margin-inline: auto;
+    width: 100%;
+    max-width: var(--container-6xl);
+    padding-inline: 1rem;
+  }
+
+  @media (width >= 40rem) {
+    .container-page {
+      padding-inline: 1.5rem;
+    }
+  }
+
+  /* Visible keyboard focus for the hand-rolled buttons that don't use
+     components/ui/button.tsx (which brings its own focus-visible ring). */
+  .focus-ring:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
 }
 
 /* ============================================================

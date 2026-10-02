@@ -55,7 +55,7 @@ export function LandingPage({
 
   return (
     <>
-      <Hero price={price} />
+      <Hero />
       {/* <AboutNovaire /> */}
       <TrustStrip />
       <ProductGrid

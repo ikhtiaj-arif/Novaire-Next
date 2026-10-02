@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { Section, SectionHeading } from '@/components/landing/Section';
 
 const POLICIES = [
   {
@@ -22,20 +23,21 @@ export function PolicySection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="mx-auto w-full max-w-2xl px-4 py-16 sm:px-6">
-      <h2 className="font-heading mb-2 text-center text-2xl font-bold text-foreground sm:text-3xl">
-        Politique de retour &amp; échange
-      </h2>
-      <p className="mb-8 text-center text-sm text-muted-foreground">
-        Votre satisfaction est notre priorité.
-      </p>
-      <div className="flex flex-col divide-y divide-border rounded-xl border border-border bg-card overflow-hidden">
+    <Section narrow labelledBy="politique-title">
+      <SectionHeading
+        titleId="politique-title"
+        title="Politique de retour &amp; échange"
+        lede="Votre satisfaction est notre priorité."
+        align="center"
+      />
+
+      <div className="mt-8 flex flex-col divide-y divide-border rounded-xl border border-border bg-card overflow-hidden md:mt-12">
         {POLICIES.map((item, i) => (
           <div key={item.trigger}>
             <button
               type="button"
               onClick={() => setOpenIndex(openIndex === i ? null : i)}
-              className="flex w-full items-center justify-between px-5 py-4 text-left text-sm font-semibold text-foreground hover:bg-muted/40 transition-colors"
+              className="focus-ring flex w-full items-center justify-between px-5 py-4 text-left text-sm font-semibold text-foreground hover:bg-muted/40 transition-colors"
               aria-expanded={openIndex === i}
             >
               {item.trigger}
@@ -51,6 +53,6 @@ export function PolicySection() {
           </div>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }

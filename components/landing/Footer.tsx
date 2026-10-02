@@ -1,25 +1,26 @@
 import Link from 'next/link';
-import { Phone, MessageCircle, Mail, MapPin, Heart } from 'lucide-react';
+import { Mail, MapPin, Heart } from 'lucide-react';
 import { NAV_LINKS } from '@/lib/nav';
+import { Section } from '@/components/landing/Section';
 
 const CONTACT = [
-  // { icon: Phone, label: '+212 6 00 00 00 00' },
-  // { icon: MessageCircle, label: 'WhatsApp — +212 6 00 00 00 00' },
   { icon: Mail, label: 'contact@novaire.ma' },
   { icon: MapPin, label: 'Casablanca, Maroc' },
 ];
 
 export function Footer() {
   return (
-    <footer className="border-t border-border/60 bg-background">
-      <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6">
+    <Section
+      as="footer"
+      className="border-t border-border/60 bg-background pb-12"
+    >
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div>
             <span className="font-heading text-xl font-bold tracking-[0.25em] text-foreground">
               NOVAIRE
             </span>
-            <p className="mt-3 text-sm font-light leading-relaxed text-muted-foreground">
+            <p className="mt-4 text-sm font-light leading-relaxed text-muted-foreground">
               Haute Parfumerie Fine. Livraison rapide partout au Maroc,
               paiement à la livraison.
             </p>
@@ -74,7 +75,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-border/60 pt-6 sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-border/60 pt-8 sm:flex-row">
           <p className="text-xs text-muted-foreground">
             © {new Date().getFullYear()} NOVAIRE. Tous droits réservés.
           </p>
@@ -83,7 +84,6 @@ export function Footer() {
             au Maroc
           </p>
         </div>
-      </div>
-    </footer>
+    </Section>
   );
 }
