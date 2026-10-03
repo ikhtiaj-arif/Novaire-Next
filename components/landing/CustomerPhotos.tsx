@@ -2,9 +2,9 @@ import Image from 'next/image';
 import { Section, SectionHeading } from '@/components/landing/Section';
 
 const PHOTOS = [
-  { src: '/customer/photo_1.jpg', alt: 'Photo d’un parfum NOVAIRE reçu d’un client' },
-  { src: '/customer/photo_2.jpg', alt: 'Photo d’un parfum NOVAIRE reçu d’un client' },
-  { src: '/customer/photo_3.jpg', alt: 'Photo d’un parfum NOVAIRE reçu d’un client' },
+  { src: '/customer/photo_1_v2.jpg', alt: 'Photo d’un parfum NOVAIRE reçu d’un client' },
+  { src: '/customer/photo_2_v2.jpg', alt: 'Photo d’un parfum NOVAIRE reçu d’un client' },
+  { src: '/customer/photo_3_v2.jpg', alt: 'Photo d’un parfum NOVAIRE reçu d’un client' },
 ];
 
 export function CustomerPhotos() {

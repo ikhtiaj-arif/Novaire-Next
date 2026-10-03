@@ -7,7 +7,7 @@ import { Section, SectionHeading } from '@/components/landing/Section';
 
 const REVIEWS = [
   {
-    src: '/customer/photo_1.jpg',
+    src: '/customer/photo_1_v2.jpg',
     alt: 'Photo envoyée par Yasmine B. — son parfum NOVAIRE reçu à Casablanca',
     name: 'Yasmine B.',
     city: 'Casablanca',
@@ -15,7 +15,7 @@ const REVIEWS = [
     text: "Livré en deux jours à Casablanca. Le parfum tient vraiment toute la journée et le coffret est très soigné. Le paiement à la livraison m'a rassurée du début à la fin.",
   },
   {
-    src: '/customer/photo_2.jpg',
+    src: '/customer/photo_2_v2.jpg',
     alt: 'Photo envoyée par Mehdi A. — son parfum NOVAIRE reçu à Rabat',
     name: 'Mehdi A.',
     city: 'Rabat',
@@ -23,7 +23,7 @@ const REVIEWS = [
     text: "Je cherchais un parfum élégant sans le prix des grandes maisons. NOVAIRE est au rendez-vous : 25 % d'extrait, une tenue immédiate et un sillage présent sans jamais être envahissant.",
   },
   {
-    src: '/customer/photo_3.jpg',
+    src: '/customer/photo_3_v2.jpg',
     alt: 'Photo envoyée par Salma K. — son parfum NOVAIRE reçu à Marrakech',
     name: 'Salma K.',
     city: 'Marrakech',
@@ -31,7 +31,7 @@ const REVIEWS = [
     text: "Très belle qualité, le flacon fait vraiment sérieux et l'odeur est Splendide. Un petit bémol sur le délai de livraison, mais rien de grave au vu du prix. Je recommande les yeux fermés.",
   },
   {
-    src: '/customer/photo_4.jpg',
+    src: '/customer/photo_4_v2.jpg',
     alt: 'Photo envoyée par Oumaima T. — son coffret NOVAIRE reçu à Fès',
     name: 'Oumaima T.',
     city: 'Fès',
@@ -39,7 +39,7 @@ const REVIEWS = [
     text: "Le packaging est très réussi, parfait pour offrir. J'ai commandé pour ma sœur et pour moi, deux parfums différents, et nous sommes ravies toutes les deux.",
   },
   {
-    src: '/customer/photo_5.jpg',
+    src: '/customer/photo_5_v2.jpg',
     alt: 'Photo envoyée par Hicham R. — son parfum NOVAIRE reçu à Tanger',
     name: 'Hicham R.',
     city: 'Tanger',
