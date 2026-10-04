@@ -35,45 +35,8 @@ export function LandingPage({
         body: JSON.stringify(payload),
       });
     } catch {
-      // #region agent log
-      fetch('http://127.0.0.1:7323/ingest/a977402a-98a0-4198-9e1d-84cfb8e3aa7b', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Debug-Session-Id': '7ff132',
-        },
-        body: JSON.stringify({
-          sessionId: '7ff132',
-          runId: 'pre-fix',
-          hypothesisId: 'D',
-          location: 'LandingPage.tsx:handleSubmit',
-          message: 'submit network error',
-          data: { variant },
-          timestamp: Date.now(),
-        }),
-      }).catch(() => {});
-      // #endregion
       return false;
     }
-
-    // #region agent log
-    fetch('http://127.0.0.1:7323/ingest/a977402a-98a0-4198-9e1d-84cfb8e3aa7b', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Debug-Session-Id': '7ff132',
-      },
-      body: JSON.stringify({
-        sessionId: '7ff132',
-        runId: 'pre-fix',
-        hypothesisId: 'D',
-        location: 'LandingPage.tsx:handleSubmit',
-        message: 'submit response',
-        data: { status: response.status, ok: response.ok, variant },
-        timestamp: Date.now(),
-      }),
-    }).catch(() => {});
-    // #endregion
 
     if (!response.ok) return false;
 
