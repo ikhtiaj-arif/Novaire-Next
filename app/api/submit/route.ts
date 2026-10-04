@@ -52,40 +52,7 @@ export async function POST(request: Request) {
 
     const webhookUrl = process.env.ZAPIER_WEBHOOK_URL;
     let webhook: 'delivered' | 'failed' = 'failed';
-    let webhookStatus: number | null = null;
     let webhookError: string | null = null;
-
-    // #region agent log
-    fetch('http://127.0.0.1:7323/ingest/a977402a-98a0-4198-9e1d-84cfb8e3aa7b', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Debug-Session-Id': '7ff132',
-      },
-      body: JSON.stringify({
-        sessionId: '7ff132',
-        runId: 'pre-fix',
-        hypothesisId: 'A',
-        location: 'app/api/submit/route.ts:env',
-        message: 'webhook env check',
-        data: {
-          hasWebhookUrl: Boolean(webhookUrl),
-          webhookHost: webhookUrl
-            ? (() => {
-                try {
-                  return new URL(webhookUrl).host;
-                } catch {
-                  return 'invalid-url';
-                }
-              })()
-            : null,
-          variant,
-          quantity,
-        },
-        timestamp: Date.now(),
-      }),
-    }).catch(() => {});
-    // #endregion
 
     if (!webhookUrl) {
       console.error(
@@ -104,30 +71,6 @@ export async function POST(request: Request) {
             body: JSON.stringify(leadData),
             signal: AbortSignal.timeout(5000),
           });
-
-          webhookStatus = res.status;
-
-          // #region agent log
-          fetch(
-            'http://127.0.0.1:7323/ingest/a977402a-98a0-4198-9e1d-84cfb8e3aa7b',
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'X-Debug-Session-Id': '7ff132',
-              },
-              body: JSON.stringify({
-                sessionId: '7ff132',
-                runId: 'pre-fix',
-                hypothesisId: 'B',
-                location: 'app/api/submit/route.ts:fetch',
-                message: 'zapier fetch result',
-                data: { attempt, status: res.status, ok: res.ok },
-                timestamp: Date.now(),
-              }),
-            }
-          ).catch(() => {});
-          // #endregion
 
           if (res.ok) {
             webhook = 'delivered';
@@ -150,32 +93,6 @@ export async function POST(request: Request) {
           );
           webhookError =
             webhookErr instanceof Error ? webhookErr.name : 'fetch_error';
-
-          // #region agent log
-          fetch(
-            'http://127.0.0.1:7323/ingest/a977402a-98a0-4198-9e1d-84cfb8e3aa7b',
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'X-Debug-Session-Id': '7ff132',
-              },
-              body: JSON.stringify({
-                sessionId: '7ff132',
-                runId: 'pre-fix',
-                hypothesisId: 'E',
-                location: 'app/api/submit/route.ts:catch',
-                message: 'zapier fetch threw',
-                data: {
-                  attempt,
-                  errorName:
-                    webhookErr instanceof Error ? webhookErr.name : 'unknown',
-                },
-                timestamp: Date.now(),
-              }),
-            }
-          ).catch(() => {});
-          // #endregion
         }
 
         if (attempt === 1) {
@@ -183,30 +100,6 @@ export async function POST(request: Request) {
         }
       }
     }
-
-    // #region agent log
-    fetch('http://127.0.0.1:7323/ingest/a977402a-98a0-4198-9e1d-84cfb8e3aa7b', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Debug-Session-Id': '7ff132',
-      },
-      body: JSON.stringify({
-        sessionId: '7ff132',
-        runId: 'pre-fix',
-        hypothesisId: 'C',
-        location: 'app/api/submit/route.ts:result',
-        message: 'submit outcome',
-        data: {
-          webhook,
-          webhookStatus,
-          webhookError,
-          willReturn502: webhook !== 'delivered',
-        },
-        timestamp: Date.now(),
-      }),
-    }).catch(() => {});
-    // #endregion
 
     // A lead that never reached Google Sheets cannot be acted on — surface the
     // failure so the customer retries instead of seeing a false confirmation.
